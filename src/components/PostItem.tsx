@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Counter } from './Counter';
 import { Post } from '@/types/Post';
 import { MyButton } from './UI/button/MyButton';
 

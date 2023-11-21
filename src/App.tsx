@@ -1,8 +1,6 @@
-import { useState, MouseEvent } from 'react'
+import { useState } from 'react'
 import './App.css'
 import { PostList } from './components/PostList'
-import { MyButton } from './components/UI/button/MyButton'
-import { MyInput } from './components/UI/input/MyInput'
 import { PostForm } from './components/PostForm'
 import { Post } from './types/Post'
 
