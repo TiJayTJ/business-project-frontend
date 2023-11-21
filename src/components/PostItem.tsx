@@ -1,15 +1,24 @@
-import React from 'react';
-import Counter from './Counter';
+import React, { FC } from 'react';
+import { Counter } from './Counter';
+import { Post } from '@/types/Post';
+import { MyButton } from './UI/button/MyButton';
 
-const PostItem = (props) => {
+
+interface PostItemProps {
+  remove: (post: Post) => void
+  index: number
+  post: Post
+}
+
+export const PostItem: FC<PostItemProps> = ({index, post, remove}) => {
     return (
-        <div className='post'>
+      <div className='post'>
         <div className='post_txt'>
-          <h2>{props.post.title}</h2>
+          <h2>{index} {post.title}</h2>
         </div>
-        <Counter/>
+        <div>
+          <MyButton onClick={() => remove(post)}>Удалить</MyButton>
+        </div>
       </div>
     );
 };
-
-export default PostItem;
