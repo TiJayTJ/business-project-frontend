@@ -9,6 +9,12 @@ interface PostListProps{
 }
 
 export const PostList: FC<PostListProps> = ({remove, posts, title}) => {
+    if(!posts.length) {
+        return (
+            <h1>Сотрудники не найдены!</h1>
+        )
+    }
+    
     return (
         <div>
             <h1>{title}</h1>
