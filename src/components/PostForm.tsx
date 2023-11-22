@@ -8,20 +8,20 @@ interface PostFormProps{
 }
 
 export const PostForm: FC<PostFormProps> = ({create}) => {
-    const [post, setPost] = useState({lastName: '', name: '', patronymic: ''})
+    const [post, setPost] = useState({surname: '', name: '', patronymic: ''})
 
     const addNewPost = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const newPost = {id: Date.now(), title: `${post.lastName} ${post.name} ${post.patronymic}`}
+        const newPost = {id: Date.now(), ...post }
         create(newPost)
-        setPost({lastName: '', name: '', patronymic: ''})
+        setPost({surname: '', name: '', patronymic: ''})
     }
     
     return (
         <form>
         <MyInput 
-          value={post.lastName} 
-          onChange = {e => setPost({...post, lastName: e.target.value})}
+          value={post.surname} 
+          onChange = {e => setPost({...post, surname: e.target.value})}
           type="txt"
           placeholder='Фамилия'
         />

@@ -1,4 +1,6 @@
 export type Post = {
     id: number
-    title: string
+    surname: string
+    name: string
+    patronymic: string
 }
