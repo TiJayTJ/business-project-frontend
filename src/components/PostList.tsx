@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { PostItem } from './PostItem.tsx';
 import { Post } from '@/types/Post';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 interface PostListProps{
     remove: (post: Post) => void
@@ -18,8 +19,17 @@ export const PostList: FC<PostListProps> = ({remove, posts, title}) => {
     return (
         <div>
             <h1>{title}</h1>
-            {posts.map((post, index) => 
-                <PostItem remove={remove} index={index+1} post={post} key={post.id}/>)}   {/* ToDo: заменить key с index на id */}
+            <TransitionGroup>
+                {posts.map((post, index) => 
+                <CSSTransition
+                key={post.id}
+                timeout={500}
+                classNames="post"
+              >
+                <PostItem remove={remove} index={index+1} post={post}/>
+              </CSSTransition>
+              )}   
+            </TransitionGroup>
         </div>
     );
 }

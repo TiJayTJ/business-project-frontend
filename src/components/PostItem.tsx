@@ -16,7 +16,7 @@ export const PostItem: FC<PostItemProps> = ({index, post, remove}) => {
           <h2>{index} {post.surname} {post.name} {post.patronymic}</h2>
         </div>
         <div>
-          <MyButton onClick={() => remove(post)}>Удалить</MyButton>
+          <MyButton color='red' onClick={() => remove(post)}>Удалить</MyButton>
         </div>
       </div>
     );
