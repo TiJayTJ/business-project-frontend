@@ -1,15 +1,8 @@
-import React, { ChangeEvent, FC, PropsWithChildren } from 'react'
-import classes from "./MyInput.module.css"
+import React, { FC } from 'react'
+import { TextInput, TextInputProps } from '@mantine/core'
 
-interface MyInputProps extends PropsWithChildren {
-    value: string
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
-    type: string
-    placeholder: string
-}
+interface MyInputProps extends TextInputProps {}
 
 export const MyInput: FC<MyInputProps> = (props) => {
-    return (
-        <input className={classes.myInput} {...props}/>
-    );
+  return <TextInput {...props} size="md" radius="md" />
 }

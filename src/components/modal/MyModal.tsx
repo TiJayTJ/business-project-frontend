@@ -1,19 +1,33 @@
-import React, { FC, PropsWithChildren } from 'react';
-import classes from './MyModal.module.css';
-import { clsx } from 'clsx';
+import React, { Children, FC, PropsWithChildren } from 'react'
+import { Modal, ModalProps, ScrollArea, Text } from '@mantine/core'
+import styles from './MyModal.module.css'
 
-interface MyModalProps extends PropsWithChildren{
-    visible: boolean
-    setVisible: (e: boolean) => void
-}
+interface MyModalProps extends ModalProps {}
 
-export const MyModal: FC<MyModalProps> = ({children, visible, setVisible}: MyModalProps) => {
-
-    return (
-        <div className={clsx(classes.myModal, visible && classes.active)} onClick={() => setVisible(false)}>
-            <div className={classes.myModalContent} onClick={(e) => e.stopPropagation()}>
-                {children}
-            </div>
-        </div>
-    );
+export const MyModal: FC<MyModalProps> = ({
+  children,
+  title,
+  ...props
+}: MyModalProps) => {
+  return (
+    <Modal
+      {...props}
+      centered
+      title={
+        <Text size="xl" fw={700}>
+          {title}
+        </Text>
+      }
+      radius="lg"
+      scrollAreaComponent={(props) => (
+        <ScrollArea.Autosize
+          {...props}
+          classNames={styles}
+          scrollbarSize={10}
+        />
+      )}
+    >
+      {children}
+    </Modal>
+  )
 }

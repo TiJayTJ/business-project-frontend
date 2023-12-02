@@ -1,14 +1,15 @@
-import React, { MouseEvent, FC, PropsWithChildren } from 'react'
-import classes from './MyButton.module.css'
-import { Button, ButtonProps } from '@mantine/core';
+import React, {
+  MouseEvent,
+  FC,
+  PropsWithChildren,
+  ButtonHTMLAttributes
+} from 'react'
+import { Button, ButtonProps } from '@mantine/core'
 
-interface MyButtonProps extends ButtonProps {
-    onClick: (e: MouseEvent<HTMLButtonElement>) => void
-}
+interface MyButtonProps
+  extends ButtonProps,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'style' | 'color'> {}
 
-export const MyButton: FC<MyButtonProps> = ({...props}: MyButtonProps) => {
-
-    return (
-        <Button {...props} variant="filled" size="md" radius="md" />
-    );
+export const MyButton: FC<MyButtonProps> = ({ ...props }: MyButtonProps) => {
+  return <Button {...props} variant="filled" size="md" radius="md" />
 }

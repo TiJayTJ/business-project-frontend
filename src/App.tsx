@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PostList } from './components/PostList'
 import { PostForm } from './components/PostForm'
 import { PostFilter } from './components/PostFilter'
@@ -7,74 +7,111 @@ import { Post } from './types/Post'
 import { SortValue } from './types/SortValue'
 import { MyModal } from './components/modal/MyModal'
 
-
-import '@mantine/core/styles.css';
+import '@mantine/core/styles.css'
 import './App.css'
+import '@mantine/dates/styles.css'
 
-import { MyButton } from './components/UI/button/MyButton'
 import { usePosts } from './components/hooks/usePost'
 import PostService from './API/PostService'
 import { useFetching } from './components/hooks/useFetching'
-import { MantineProvider } from '@mantine/core'
+import {
+  ActionIcon,
+  AppShell,
+  Container,
+  Group,
+  MantineProvider,
+  Tabs
+} from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { DatesProvider } from '@mantine/dates'
+import { IconUserPlus } from '@tabler/icons-react'
 
+import 'dayjs/locale/ru'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import dayjs from 'dayjs'
+
+dayjs.extend(customParseFormat)
+dayjs.locale('ru')
 
 function App() {
-  const [posts, setPosts] = useState<Post[]>([
-    {id: 1, surname: 'Шальнев', name: 'Владислав', patronymic: 'Александрович' },
-    {id: 2, surname: 'Тахавиев', name: 'Нурхан', patronymic: 'Булатович', },
-    {id: 3, surname: 'Береснёв', name: 'Руслан', patronymic: 'Анатольевич', }])
-
-  const [filter, setFilter] = useState({sort: '', query: ''})
-  const [modal, setModal] = useState(false)
-  const sortedAndSearchedPosts = usePosts(posts, filter.sort as SortValue, filter.query)
+  const [posts, setPosts] = useState<Post[]>([])
+  const [filter, setFilter] = useState({ sort: '', query: '' })
+  const sortedAndSearchedPosts = usePosts(
+    posts,
+    filter.sort as SortValue,
+    filter.query
+  )
   const {
     fetch: fetchPosts,
     isLoading: isPostsLoading,
     error: postError
-  } = useFetching( async () => {
+  } = useFetching(async () => {
     const posts = await PostService.getAll()
-    console.log(posts)
+    setPosts(posts)
   })
+  const [opened, { open, close }] = useDisclosure(false)
 
-
-  useEffect (() => {
-    fetchPosts();
+  useEffect(() => {
+    fetchPosts()
   }, [])
 
   const createPost = (newPost: Post) => {
     setPosts([...posts, newPost])
-    setModal(false)
-  }
-
-  const removePost = (post: Post) => {
-    setPosts(posts.filter(p => p.id !== post.id))
   }
 
   return (
-    <MantineProvider defaultColorScheme='dark' theme={{
-      primaryColor: 'violet'
-    }}>
-      <div className='App'>
-        <button onClick={fetchPosts}>Get posts</button>
-        <MyButton onClick={() => setModal(true)}>
-          Создать пользователя
-        </MyButton>
-        <MyModal visible = {modal} setVisible={setModal}>
-          <PostForm create={createPost}/>
-        </MyModal>
-        <hr/>
-        <PostFilter
-          filter={filter}
-          setFilter={setFilter}
-        />
-        {postError &&
-          <h1>Произошла ошибка ${postError}</h1> 
-        }
-        {isPostsLoading
-        ? <h1>Идёт загрузка........</h1>
-        : <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Список сотрудников'/>}
-        
-      </div>
+    <MantineProvider
+      defaultColorScheme="dark"
+      theme={{
+        primaryColor: 'violet'
+      }}
+    >
+      <DatesProvider
+        settings={{
+          locale: 'ru',
+          timezone: undefined
+        }}
+      >
+        <AppShell>
+          <AppShell.Main>
+            <Container>
+              <MyModal
+                opened={opened}
+                onClose={close}
+                title="Подача заявки"
+                size="md"
+              >
+                <PostForm create={createPost} />
+              </MyModal>
+              <Group wrap="nowrap" mt="lg">
+                <ActionIcon
+                  size="xl"
+                  radius="md"
+                  aria-label="Settings"
+                  onClick={open}
+                >
+                  <IconUserPlus />
+                </ActionIcon>
+                <PostFilter filter={filter} setFilter={setFilter} />
+              </Group>
+              <Tabs mt="md" variant="pills" radius="md" defaultValue="gallery">
+                <Tabs.List>
+                  <Tabs.Tab value="employees">Сотрудники</Tabs.Tab>
+                  <Tabs.Tab value="submits">Заявки</Tabs.Tab>
+                </Tabs.List>
+                <Tabs.Panel value="employees">
+                  {isPostsLoading ? (
+                    <h1>Идёт загрузка........</h1>
+                  ) : (
+                    <PostList posts={sortedAndSearchedPosts} />
+                  )}
+                </Tabs.Panel>
+              </Tabs>
+              {postError && <h1>Произошла ошибка ${postError}</h1>}
+            </Container>
+          </AppShell.Main>
+        </AppShell>
+      </DatesProvider>
     </MantineProvider>
   )
 }

@@ -1,79 +1,78 @@
 select {
-    /* Reset Select */
-    appearance: none;
-    outline: 10px red;
-    border: 0;
-    box-shadow: none;
-    /* Personalize */
-    flex: 1;
-    padding: 0 1em;
-    color: #fff;
-    background-color: #1a1a1a;
-    background-image: none;
-    cursor: pointer;
+  /* Reset Select */
+  appearance: none;
+  outline: 10px red;
+  border: 0;
+  box-shadow: none;
+  /* Personalize */
+  flex: 1;
+  padding: 0 1em;
+  color: #fff;
+  background-color: #1a1a1a;
+  background-image: none;
+  cursor: pointer;
 }
 /* Remove IE arrow */
 select::-ms-expand {
-    display: none;
+  display: none;
 }
-    /* Custom Select wrapper */
+/* Custom Select wrapper */
 .mySelect {
-    position: relative;
-    display: flex;
-    width: 20em;
-    height: 3em;
-    border-radius: .25em;
-    overflow: hidden;
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  border-radius: 0.25em;
+  overflow: hidden;
 }
-    /* Arrow */
+/* Arrow */
 .mySelect::after {
-    content: '\25BC';
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1em;
-    background-color: #34495e;
-    transition: .25s all ease;
-    pointer-events: none;
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  background-color: #34495e;
+  transition: 0.25s all ease;
+  pointer-events: none;
 }
-    /* Transition */
+/* Transition */
 .mySelect:hover::after {
-    color: #f39c12;
+  color: #f39c12;
 }
 
-    /* Other styles*/
+/* Other styles*/
 body {
-    color: #fff;
-    background: var(--background-gradient);
+  color: #fff;
+  background: var(--background-gradient);
 }
 
 a {
-    font-weight: bold;
-    color: var(--gray);
-    text-decoration: drop-shadow;
-    padding: .25em;
-    border-radius: .50em;
-    background: pink;
+  font-weight: bold;
+  color: var(--gray);
+  text-decoration: drop-shadow;
+  padding: 0.25em;
+  border-radius: 0.5em;
+  background: pink;
 }
 
-    /* 가운데정렬 - position,transform*/
+/* 가운데정렬 - position,transform*/
 .container {
-    position : absolute;
-    top: 50%;
-    left : 50%;
-    transform :
-    translate(-50%,-50%); 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-    /* 가운데정렬 - flexbox*/
-    /* 근데 이건 1행 정렬이된다. */
-    /* .container {
+/* 가운데정렬 - flexbox*/
+/* 근데 이건 1행 정렬이된다. */
+/* .container {
     display: flex;
     justify-content: center;
     align-items: absolute;
     } */
 
 .down_note {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
