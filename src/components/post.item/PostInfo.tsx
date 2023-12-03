@@ -1,4 +1,4 @@
-import { Stack, Text, Paper } from '@mantine/core'
+import { Stack, Text } from '@mantine/core'
 import { FC, PropsWithChildren, ReactNode } from 'react'
 
 interface PostInfoProps extends PropsWithChildren {

@@ -1,4 +1,4 @@
-import React, { Children, FC, PropsWithChildren } from 'react'
+import React, { FC } from 'react'
 import { Modal, ModalProps, ScrollArea, Text } from '@mantine/core'
 import styles from './MyModal.module.css'
 

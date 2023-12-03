@@ -45,11 +45,9 @@ const dateParser: DateInputProps['dateParser'] = (input) =>
     'ru'
   ).toDate()
 
-interface PostFormProps {
-  create: (newPost: Post) => void
-}
+interface PostFormProps {}
 
-export const PostForm: FC<PostFormProps> = ({ create }) => {
+export const PostForm: FC<PostFormProps> = () => {
   const {
     control,
     register,

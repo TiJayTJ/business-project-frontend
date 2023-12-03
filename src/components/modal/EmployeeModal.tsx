@@ -1,26 +1,55 @@
-import { Avatar, Badge, Paper, Stack, Text } from '@mantine/core'
+import {
+  ActionIcon,
+  Avatar,
+  Badge,
+  Button,
+  Group,
+  ModalProps,
+  Paper,
+  Stack,
+  Text
+} from '@mantine/core'
 import { MyModal } from './MyModal'
 import { Post } from '@/types/Post'
 import { PostInfo } from '../post.item/PostInfo'
 import dayjs from 'dayjs'
 import { stageName } from '@/utils/constants'
 import { FC } from 'react'
+import { MyButton } from '../UI/button/MyButton'
+import { IconPencil } from '@tabler/icons-react'
 
-interface EmployeeModalProps {
+interface EmployeeModalProps extends ModalProps {
   post: Post
-  opened: boolean
-  close: () => void
 }
 
 export const EmployeeModal: FC<EmployeeModalProps> = ({
   post,
   opened,
-  close
+  onClose
 }) => {
   return (
-    <MyModal opened={opened} onClose={close} title="Сотрудник">
+    <MyModal opened={opened} onClose={onClose} title="Сотрудник">
       <Stack>
-        <Paper component={Stack} align="center" gap={3} bg="dark.6" p="lg">
+        <Paper
+          component={Stack}
+          align="center"
+          gap={3}
+          bg="dark.6"
+          p="lg"
+          pos="relative"
+        >
+          <ActionIcon
+            variant="light"
+            size="xl"
+            radius="xl"
+            pos="absolute"
+            aria-label="Edit"
+            top={16}
+            right={16}
+          >
+            <IconPencil />
+          </ActionIcon>
+
           <Avatar size="xl" />
           <Text size="lg" fw={700} mt="xs">
             {post.surname} {post.name} {post.patronymic}

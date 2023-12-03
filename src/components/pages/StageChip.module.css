@@ -1,0 +1,5 @@
+.tab[data-active][data-active] {
+  --tabs-color: var(--tab-bg);
+  --_tab-bg: var(--tabs-color);
+  --_tab-color: var(--tab-color);
+}

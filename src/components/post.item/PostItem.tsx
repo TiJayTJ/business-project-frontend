@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Post } from '@/types/Post'
 import { Avatar, Badge, Group, Paper, Stack, Text } from '@mantine/core'
-import { stageName } from '@/utils/constants'
+import { stageColor, stageName } from '@/utils/constants'
 import { useDisclosure } from '@mantine/hooks'
 import styles from './PostItem.module.css'
 import { EmployeeModal } from '../modal/EmployeeModal'
@@ -16,7 +16,7 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
 
   return (
     <>
-      <EmployeeModal opened={opened} close={close} post={post} />
+      <EmployeeModal opened={opened} onClose={close} post={post} />
       <Paper
         component="button"
         mt="md"
@@ -28,11 +28,13 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
       >
         <Group p="md" align="flex-start">
           <Avatar size="lg" />
-          <Stack gap="xs">
+          <Stack gap="xs" align="flex-start">
             <Text>
               {post.surname} {post.name} {post.patronymic}
             </Text>
-            <Badge variant="light">{stageName[post.stage]}</Badge>
+            <Badge variant="light" color={stageColor[post.stage]}>
+              {stageName[post.stage]}
+            </Badge>
           </Stack>
         </Group>
       </Paper>
