@@ -1,14 +1,5 @@
 import { Post } from '@/types/Post'
-import {
-  Button,
-  Group,
-  Modal,
-  ModalProps,
-  Stack,
-  Text,
-  TextInput,
-  Textarea
-} from '@mantine/core'
+import { Group, Modal, ModalProps, Stack, Text } from '@mantine/core'
 import { DateInput, DateInputProps } from '@mantine/dates'
 import dayjs from 'dayjs'
 import { FC } from 'react'
@@ -18,40 +9,28 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import TrainingService from '@/API/TrainingService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { MyModal } from './MyModal'
-import { notifications } from '@mantine/notifications'
-import { signUpSchema } from './SignUpSchema'
-
-type TSignUpSchema = z.infer<typeof signUpSchema>
-
-const dateFormat = 'D MMMM YYYY'
-
-const dateParser: DateInputProps['dateParser'] = (input) =>
-  dayjs(
-    input,
-    [
-      dateFormat,
-      'D.M.YYYY',
-      'DD.MM.YYYY',
-      'D/M/YYYY',
-      'DD/MM/YYYY',
-      'D-M-YYYY',
-      'DD-MM-YYYY'
-    ],
-    'ru'
-  ).toDate()
+import { SignUpSchema, signUpSchema } from '../../types/SignUpSchema'
+import { MyInput } from '../UI/input/MyInput'
+import { MyTextArea } from '../UI/textArea/MyTextArea'
+import { MyButton } from '../UI/button/MyButton'
+import { dateFormat, dateParser } from '@/utils/constants'
+import { notifications } from '@/utils/helpers'
+import { LeaderSelect } from '../leader.select'
 
 interface AddModalProps extends ModalProps {}
 
-export const AddModal: FC<AddModalProps> = ({ opened, onClose }) => {
+export const AddModal: FC<AddModalProps> = ({
+  opened,
+  onClose: onModalClose
+}) => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset
-  } = useForm<TSignUpSchema>({
-    resolver: zodResolver(signUpSchema),
-    mode: 'onBlur'
+  } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema)
   })
 
   const queryClient = useQueryClient()
@@ -62,33 +41,38 @@ export const AddModal: FC<AddModalProps> = ({ opened, onClose }) => {
       queryClient.invalidateQueries({ queryKey: ['employees'] })
       reset()
       onClose()
-      notifications.show({
-        title: 'Пользователь успешно добавлен',
-        message: 'Проверьте список пользователей',
-        color: 'green'
+      notifications.success({
+        title: 'Пользователь добавлен',
+        message: ''
       })
     }
   })
 
-  const onSubmit = async (data: TSignUpSchema) => {
+  const onSubmit = async (data: SignUpSchema) => {
+    console.log(data)
     await mutate(data)
+  }
+
+  const onClose = () => {
+    reset()
+    onModalClose()
   }
 
   return (
     <MyModal opened={opened} onClose={onClose} title="Подача заявки">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap="lg" mb="xl">
+        <Stack gap="xl">
           <Stack gap="xs">
             <Text fw={700}>Сотрудник</Text>
             <Group grow align="flex-start">
-              <TextInput
+              <MyInput
                 {...register('employeeSurname')}
                 withAsterisk
                 placeholder="Введите фамилию"
                 label="Фамилия"
                 error={errors.employeeSurname?.message}
               />
-              <TextInput
+              <MyInput
                 withAsterisk
                 {...register('employeeName')}
                 placeholder="Введите имя"
@@ -96,13 +80,13 @@ export const AddModal: FC<AddModalProps> = ({ opened, onClose }) => {
                 error={errors.employeeName?.message}
               />
             </Group>
-            <TextInput
+            <MyInput
               {...register('employeePatronymic')}
               placeholder="Введите отчество"
               label="Отчество"
               error={errors.employeePatronymic?.message}
             />
-            <TextInput
+            <MyInput
               {...register('employeeJobTitle')}
               withAsterisk
               placeholder="Введите должность"
@@ -110,46 +94,26 @@ export const AddModal: FC<AddModalProps> = ({ opened, onClose }) => {
               error={errors.employeeJobTitle?.message}
             />
           </Stack>
-          <Stack gap="xs">
-            <Text fw={700}>Руководитель</Text>
-            <Group grow align="flex-start">
-              <TextInput
-                {...register('leaderSurname')}
+          <Controller
+            name="leaderId"
+            control={control}
+            render={({ field }) => (
+              <LeaderSelect
+                {...field}
+                error={errors.leaderId?.message}
+                label="Руководитель"
                 withAsterisk
-                placeholder="Введите фамилию"
-                label="Фамилия"
-                error={errors.leaderSurname?.message}
               />
-              <TextInput
-                withAsterisk
-                {...register('leaderName')}
-                placeholder="Введите имя"
-                label="Имя"
-                error={errors.leaderName?.message}
-              />
-            </Group>
-            <TextInput
-              {...register('leaderPatronymic')}
-              placeholder="Введите отчество"
-              label="Отчество"
-              error={errors.leaderPatronymic?.message}
-            />
-            <TextInput
-              {...register('leaderJobTitle')}
-              withAsterisk
-              placeholder="Введите должность"
-              label="Должность"
-              error={errors.leaderJobTitle?.message}
-            />
-          </Stack>
-          <TextInput
+            )}
+          />
+          <MyInput
             {...register('project')}
             label="Название проекта"
             placeholder="Введите название проекта"
             withAsterisk
             error={errors.project?.message}
           />
-          <Textarea
+          <MyTextArea
             {...register('trainingPurpose')}
             label="Цель обучения"
             placeholder="Введите цель обучения"
@@ -162,6 +126,8 @@ export const AddModal: FC<AddModalProps> = ({ opened, onClose }) => {
             control={control}
             render={({ field }) => (
               <DateInput
+                size="md"
+                radius="md"
                 label="Дата подачи"
                 placeholder="Выберите дату"
                 maxDate={new Date()}
@@ -173,16 +139,20 @@ export const AddModal: FC<AddModalProps> = ({ opened, onClose }) => {
               />
             )}
           />
-        </Stack>
-        <Stack>
-          {isError && (
-            <Text fz="sm" c="red">
-              Произошла ошибка {error.message}
-            </Text>
-          )}
-          <Button type="submit" disabled={isSubmitting || isPending} fullWidth>
-            Добавить сотрудника
-          </Button>
+          <Stack>
+            {isError && (
+              <Text fz="sm" c="red">
+                Произошла ошибка {error.message}
+              </Text>
+            )}
+            <MyButton
+              type="submit"
+              loading={isSubmitting || isPending}
+              fullWidth
+            >
+              Добавить сотрудника
+            </MyButton>
+          </Stack>
         </Stack>
       </form>
     </MyModal>

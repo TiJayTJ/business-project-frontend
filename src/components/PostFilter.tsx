@@ -3,13 +3,14 @@ import { MyInput } from './UI/input/MyInput'
 import { MySelect } from './UI/select/MySelect'
 import { Flex, rem } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
+import { SortValue } from '@/types/SortValue'
 
 interface PostFilterProps {
   filter: {
-    sort: string
+    sort: SortValue
     query: string
   }
-  setFilter: (e: { sort: string; query: string }) => void
+  setFilter: (e: { sort: SortValue; query: string }) => void
 }
 
 export const PostFilter: FC<PostFilterProps> = ({ filter, setFilter }) => {
@@ -25,20 +26,19 @@ export const PostFilter: FC<PostFilterProps> = ({ filter, setFilter }) => {
         leftSectionPointerEvents="none"
         leftSection={icon}
       />
-      <Flex justify="center">
-        <MySelect
-          value={filter.sort}
-          onChange={(selectedSort) =>
-            setFilter({ ...filter, sort: selectedSort })
-          }
-          defaultValue="Сортировка"
-          options={[
-            { value: 'surname', label: 'По фамилии' },
-            { value: 'name', label: 'По имени' },
-            { value: 'patronymic', label: 'По отчеству' }
-          ]}
-        />
-      </Flex>
+      <MySelect
+        miw="20%"
+        value={filter.sort}
+        onChange={(selectedSort) =>
+          setFilter({ ...filter, sort: selectedSort })
+        }
+        defaultValue="Сортировка"
+        options={[
+          { value: 'surname', label: 'По фамилии' },
+          { value: 'name', label: 'По имени' },
+          { value: 'patronymic', label: 'По отчеству' }
+        ]}
+      />
     </>
   )
 }

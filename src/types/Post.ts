@@ -12,6 +12,6 @@ export type Post = {
   stage: UserStage
   leader: Leader
   startTime: Date
-  reasonForRefuseTraining: string
+  reasonForRefuseTraining: string | null
   active: boolean
 }

@@ -1,1 +1,1 @@
-export type SortValue = 'name' | 'surname' | 'patronymic'
+export type SortValue = 'name' | 'surname' | 'patronymic' | null

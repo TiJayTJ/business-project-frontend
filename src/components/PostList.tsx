@@ -1,17 +1,25 @@
-import React, { FC } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { PostItem } from './post.item/PostItem.tsx'
 import { Post } from '@/types/Post'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { useQuery } from '@tanstack/react-query'
 import { UserStageGroup } from '@/types/UserStageGroup.ts'
-import PostService from '@/API/PostService.ts'
+import PostService from '@/API/EmployeeService.ts'
 import { groupStages } from '@/utils/constants.ts'
+import { GroupContext } from '@/context/GroupContext.ts'
+import { Skeleton, Stack } from '@mantine/core'
+import { SelectStage } from './selectStage/SelectStage.tsx'
+import { UserStage } from '@/types/UserStage.ts'
+import { useSortedPosts } from './hooks/usePost.tsx'
+import { SortValue } from '@/types/SortValue.ts'
 
 interface PostListProps {
-  group: UserStageGroup
+  stages: UserStage[]
+  search: string
+  sort: SortValue
 }
 
-export const PostList: FC<PostListProps> = ({ group }) => {
+export const PostList: FC<PostListProps> = ({ stages, search, sort }) => {
   const {
     data: posts,
     isPending,
@@ -19,23 +27,28 @@ export const PostList: FC<PostListProps> = ({ group }) => {
     isError,
     isSuccess
   } = useQuery({
-    queryKey: ['employees', [groupStages[group]]],
-    queryFn: () => PostService.getPosts(groupStages[group])
+    queryKey: ['employees', stages, search],
+    queryFn: () => PostService.get(stages, search)
   })
 
+  const sortedPosts = useSortedPosts(posts || [], sort)
+
+  if (sort && posts) {
+    console.log(sort)
+    console.log([...posts].sort((a, b) => a[sort].localeCompare(b[sort])))
+  }
+
   return (
-    <>
-      {isPending && <h1>Идёт загрузка........</h1>}
+    <Stack gap="md" py="md">
+      {isPending &&
+        [...Array(5)].map((_, index) => (
+          <Skeleton key={index} height={88} radius="lg" />
+        ))}
       {isError && <h1>Произошла ошибка ${error.message}</h1>}
-      {isSuccess && (
-        <TransitionGroup>
-          {posts.map((post, index) => (
-            <CSSTransition key={post.id} timeout={500} classNames="post">
-              <PostItem index={index + 1} post={post} />
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
-      )}
-    </>
+      {isSuccess &&
+        sortedPosts.map((post, index) => (
+          <PostItem key={post.id} index={index + 1} post={post} />
+        ))}
+    </Stack>
   )
 }

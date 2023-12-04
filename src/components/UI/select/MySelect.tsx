@@ -3,10 +3,11 @@ import { Option } from '@/types/Option'
 import { Post } from '@/types/Post'
 import classes from './MySelect.module.css'
 import { Select, SelectProps } from '@mantine/core'
+import { SortValue } from '@/types/SortValue'
 
 interface MySelectProps extends Omit<SelectProps, 'onChange'> {
-  value: string
-  onChange: (e: keyof Post) => void
+  value: SortValue
+  onChange: (e: SortValue) => void
   options: Option[]
   defaultValue: string
 }
@@ -22,7 +23,7 @@ export const MySelect: FC<MySelectProps> = ({
     <Select
       value={value}
       placeholder={defaultValue}
-      onChange={(value) => onChange(value as keyof Post)}
+      onChange={(value) => onChange(value as SortValue)}
       data={options}
       size="md"
       radius="md"

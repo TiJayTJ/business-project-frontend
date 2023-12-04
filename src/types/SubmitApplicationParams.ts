@@ -1,8 +1,5 @@
 export type SubmitApplicationParams = {
-  leaderName: string
-  leaderSurname: string
-  leaderPatronymic: string
-  leaderJobTitle: string
+  leaderId: number
   project: string
   employeeName: string
   employeeSurname: string

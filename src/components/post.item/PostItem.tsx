@@ -1,10 +1,25 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { Post } from '@/types/Post'
-import { Avatar, Badge, Group, Paper, Stack, Text } from '@mantine/core'
+import {
+  ActionIcon,
+  Avatar,
+  Badge,
+  Group,
+  Paper,
+  Stack,
+  Text
+} from '@mantine/core'
 import { stageColor, stageName } from '@/utils/constants'
 import { useDisclosure } from '@mantine/hooks'
 import styles from './PostItem.module.css'
 import { EmployeeModal } from '../modal/EmployeeModal'
+import { IconCheck, IconX } from '@tabler/icons-react'
+import { GroupContext } from '@/context/GroupContext'
+import { UserStageGroup } from '@/types/UserStageGroup'
+import { ModalContext } from '@/context/ModalContext'
+import { ApplicationControls } from '../application.controls/ApplicationControls'
+import { UserStage } from '@/types/UserStage'
+import { EntranceTestControls } from '../entrance.test.controls/EntranceTestControls'
 
 interface PostItemProps {
   index: number
@@ -12,21 +27,34 @@ interface PostItemProps {
 }
 
 export const PostItem: FC<PostItemProps> = ({ index, post }) => {
-  const [opened, { open, close }] = useDisclosure(false)
+  const group = useContext(GroupContext)
+  const open = useContext(ModalContext)
+
+  const applicationStage =
+    group === UserStageGroup.APPLICATION &&
+    post.stage === UserStage.WAITING_APPLICATION_TRAINING
+
+  const entranceStage =
+    group === UserStageGroup.ENTRANCE_TEST &&
+    post.stage === UserStage.PASSES_ENTRANCE_TEST
 
   return (
     <>
-      <EmployeeModal opened={opened} onClose={close} post={post} />
       <Paper
+        p={0}
         component="button"
-        mt="md"
         radius="lg"
         withBorder
-        onClick={open}
         w="100%"
         className={styles.root}
       >
-        <Group p="md" align="flex-start">
+        <Group
+          p="md"
+          mr="md"
+          align="flex-start"
+          onClick={() => open(post.id)}
+          className={styles.inner}
+        >
           <Avatar size="lg" />
           <Stack gap="xs" align="flex-start">
             <Text>
@@ -37,6 +65,8 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
             </Badge>
           </Stack>
         </Group>
+        {applicationStage && <ApplicationControls id={post.id} />}
+        {entranceStage && <EntranceTestControls id={post.id} />}
       </Paper>
     </>
   )

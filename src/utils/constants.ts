@@ -1,6 +1,24 @@
 import { UserStage } from '@/types/UserStage'
 import { UserStageGroup } from '@/types/UserStageGroup'
 import { DefaultMantineColor } from '@mantine/core'
+import { DateInputProps } from '@mantine/dates'
+import dayjs from 'dayjs'
+
+export const dateFormat = 'D MMMM YYYY'
+export const dateParser: DateInputProps['dateParser'] = (input) =>
+  dayjs(
+    input,
+    [
+      dateFormat,
+      'D.M.YYYY',
+      'DD.MM.YYYY',
+      'D/M/YYYY',
+      'DD/MM/YYYY',
+      'D-M-YYYY',
+      'DD-MM-YYYY'
+    ],
+    'ru'
+  ).toDate()
 
 export const stageName: Record<UserStage, string> = {
   [UserStage.WAITING_APPLICATION_TRAINING]: 'Ожидает одобрения заявки',
@@ -17,15 +35,15 @@ export const stageName: Record<UserStage, string> = {
 
 export const stageColor: Record<UserStage, DefaultMantineColor> = {
   [UserStage.WAITING_APPLICATION_TRAINING]: 'blue',
-  [UserStage.REFUSAL_APPLICATION]: 'cyan',
-  [UserStage.PASSES_ENTRANCE_TEST]: 'dark',
-  [UserStage.FAILED_ENTRANCE_TEST]: 'grape',
-  [UserStage.STUDYING]: 'gray',
-  [UserStage.EXPECTS_PRODUCTION_PRACTICE]: 'green',
+  [UserStage.REFUSAL_APPLICATION]: 'red',
+  [UserStage.PASSES_ENTRANCE_TEST]: 'teal',
+  [UserStage.FAILED_ENTRANCE_TEST]: 'red',
+  [UserStage.STUDYING]: 'orange',
+  [UserStage.EXPECTS_PRODUCTION_PRACTICE]: 'cyan',
   [UserStage.PRODUCTION_PRACTICE]: 'indigo',
-  [UserStage.EXAM]: 'lime',
-  [UserStage.FAILED_EXAM]: 'orange',
-  [UserStage.PASSED_EXAM]: 'pink'
+  [UserStage.EXAM]: 'violet',
+  [UserStage.FAILED_EXAM]: 'red',
+  [UserStage.PASSED_EXAM]: 'teal'
 }
 
 export const groupName = {

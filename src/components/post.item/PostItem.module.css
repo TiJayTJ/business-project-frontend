@@ -1,13 +1,24 @@
 .root {
-    cursor: pointer;
+  &:focus-visible {
+    outline: calc(0.125rem * var(--mantine-scale)) solid
+      var(--mantine-primary-color-filled);
+    outline-offset: calc(0.125rem * var(--mantine-scale));
+  }
 
-    &:hover {
-        background-color: var(--mantine-color-dark-6); 
-    }
+  &:hover {
+    background-color: var(--mantine-color-dark-6);
+  }
 
-    &:focus-visible {
-        outline: calc(0.125rem * var(--mantine-scale)) solid
-          var(--mantine-primary-color-filled);
-        outline-offset: calc(0.125rem * var(--mantine-scale));
-      }
+  display: flex;
+  align-items: center;
+
+  &>*:first-child {
+    flex-grow: 1;
+  }
+}
+
+.inner {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
 }
