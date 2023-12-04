@@ -1,13 +1,17 @@
 # React + TypeScript + Vite + React Query + React Hook Form + Zod + Mantine = ❤️
 
-## Билд через докер
+## Установка
+
+Нужен Node.js https://nodejs.org/en
+
+Затем в папке с проектом
 ```shell
-docker build --tag business-project-frontend .
+npm i
 ```
 
-## Запуск дев сервера через докер (для демонстрации, дев сервер не подходит для продакшена)
+## Запуск дев сервера (для демонстрации, дев сервер не подходит для продакшена)
 ```shell
-docker run -d -p 5173:5173 business-project-frontend
+npm run dev
 ```
 
 Готово!
