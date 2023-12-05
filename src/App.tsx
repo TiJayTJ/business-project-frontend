@@ -1,5 +1,5 @@
 import '@mantine/core/styles.css'
-import './App.css'
+import styles from './App.module.css'
 import '@mantine/dates/styles.css'
 import {
   ActionIcon,
@@ -17,10 +17,11 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import dayjs from 'dayjs'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Home } from './components/pages/Home'
 
 import '@mantine/notifications/styles.css'
 import { Notifications } from '@mantine/notifications'
+import { Header } from './components/Header/Header'
+import { Outlet } from 'react-router-dom'
 
 dayjs.extend(customParseFormat)
 dayjs.locale('ru')
@@ -42,9 +43,12 @@ function App() {
             timezone: undefined
           }}
         >
-          <AppShell>
+          <AppShell header={{ height: 60 }} classNames={styles}>
+            <AppShell.Header withBorder={false}>
+              <Header />
+            </AppShell.Header>
             <AppShell.Main>
-              <Home />
+              <Outlet />
             </AppShell.Main>
           </AppShell>
         </DatesProvider>

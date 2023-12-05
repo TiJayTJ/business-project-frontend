@@ -1,0 +1,43 @@
+.tab {
+  --tabs-radius: var(--mantine-radius-md);
+  --border-color: transparent;
+
+  color: inherit;
+  font-size: var(--mantine-font-size-sm);
+  border-radius: var(--tabs-radius) var(--tabs-radius) 0 0;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+
+  border-width: 0 0 var(--border-width) 0;
+  border-style: solid;
+  border-color: var(--border-color);
+
+  position: relative;
+
+  &:hover {
+    background-color: var(--mantine-color-dark-6);
+  }
+
+  &.active {
+    --border-color: var(--mantine-color-violet-filled);
+    background-color: var(--mantine-color-dark-6);
+  }
+}
+
+.tabs {
+  --border-width: calc(0.125rem * var(--mantine-scale));
+
+  position: relative;
+
+  &:before {
+    content: '';
+
+    border-color: var(--mantine-color-dark-4);
+    border-style: solid;
+    border-width: 0 0 var(--border-width) 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: unset;
+  }
+}

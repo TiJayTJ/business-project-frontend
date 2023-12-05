@@ -5,7 +5,9 @@ import { SendToProdParams } from '@/types/SendToProdParams'
 import { SubmitApplicationParams } from '@/types/SubmitApplicationParams'
 import { TakeEntranceTestParams } from '@/types/TakeEntranceTestParams'
 import { TakeExamParams } from '@/types/TakeExamParams'
+import { UserStage } from '@/types/UserStage'
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 export default class TrainingService {
   static async submit(data: SubmitApplicationParams) {
@@ -121,6 +123,25 @@ export default class TrainingService {
     const response = await axios.post<ReturnType>(
       `/training/take-module-test/${id}`,
       data
+    )
+
+    // await new Promise((resolve) => setTimeout(resolve, 500))
+
+    return response.data
+  }
+
+  static async fromPeriod({
+    startDateTime,
+    endDateTime
+  }: {
+    startDateTime: Date
+    endDateTime: Date
+  }) {
+    const start = dayjs(startDateTime).format('YYYY-MM-DD')
+    const end = dayjs(endDateTime).format('YYYY-MM-DD')
+
+    const response = await axios.get<Record<UserStage, number>>(
+      `/training/get-from-period?startDateTime=${start}&endDateTime=${end}`
     )
 
     // await new Promise((resolve) => setTimeout(resolve, 500))
