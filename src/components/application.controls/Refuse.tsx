@@ -40,8 +40,7 @@ export const Refuse = ({ id, disabled, setAction }: ControlProps) => {
       setOpened(false)
       setAction()
       notifications.success({
-        title: 'Заявка отклонена',
-        message: ''
+        title: 'Заявка отклонена'
       })
     }
   })

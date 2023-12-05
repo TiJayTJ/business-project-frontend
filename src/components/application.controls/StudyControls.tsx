@@ -7,10 +7,24 @@ import { IconCheck, IconX } from '@tabler/icons-react'
 import { Study } from './Study'
 
 export const StudyControls = ({ id }: PropsWithId) => {
+  const [action, setAction] = useState(true)
+
   return (
-    <Group gap="sm">
-      <Study id={id} setAction={() => {}} disabled={false} practice={false} />
-      <Study id={id} setAction={() => {}} disabled={false} practice={true} />
-    </Group>
+    action && (
+      <Group gap="sm">
+        <Study
+          id={id}
+          setAction={() => setAction(false)}
+          disabled={false}
+          practice={false}
+        />
+        <Study
+          id={id}
+          setAction={() => setAction(false)}
+          disabled={false}
+          practice={true}
+        />
+      </Group>
+    )
   )
 }

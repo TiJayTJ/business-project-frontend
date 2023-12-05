@@ -15,7 +15,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import TrainingService from '@/API/TrainingService'
-import { notifications } from '@/utils/helpers'
+import { getNotify, notifications } from '@/utils/helpers'
 import { IconArrowNarrowRight } from '@tabler/icons-react'
 import { MyDateInput } from '../UI/myDateInput/MyDateInput'
 import { register } from 'module'
@@ -49,12 +49,18 @@ export const ResultFormPopover = ({ id }: PropsWithId) => {
 
   const { mutateAsync, error } = useMutation({
     mutationFn: TrainingService.takeEntranceTest,
-    onSuccess: () => {
+    onSuccess: (result) => {
       setOpened(false)
-      notifications.success({
-        title: 'Заявка принята',
-        message: ''
-      })
+
+      const { notify } = getNotify(
+        { title: 'Тест пройден' },
+        { title: 'Тест не пройден' },
+        { title: 'Тест не пройден', message: 'Пропущен дедлайн' },
+        { title: 'Заявка отклонена', message: 'Некорректная дата' },
+        result
+      )
+
+      notify()
     }
   })
 

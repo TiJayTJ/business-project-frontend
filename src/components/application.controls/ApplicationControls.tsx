@@ -16,7 +16,9 @@ export const ApplicationControls = ({ id }: PropsWithId) => {
         <>
           <Confirm
             id={id}
-            setAction={() => setAction(Action.CONFIRM)}
+            setAction={(result) =>
+              setAction(result ? Action.CONFIRM : Action.REFUSE)
+            }
             disabled={confirm}
           />
           <Refuse

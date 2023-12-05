@@ -45,10 +45,10 @@ export const PracticeResult = ({
     onSuccess: () => {
       setOpened(false)
       setAction()
-      notifications.success({
-        title: res ? 'Практику сдал' : 'Практику не сдал',
-        message: ''
-      })
+
+      const notify = res ? notifications.success : notifications.error
+
+      notify({ title: res ? 'Практику сдал' : 'Практику не сдал' })
     }
   })
 

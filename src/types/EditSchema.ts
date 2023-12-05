@@ -18,7 +18,12 @@ export const editSchema = z.object({
     required_error: 'Обязательное поле'
   }),
   reason: z.string().nullable(),
-  email: z.string().min(1, 'Обязательное поле').email('Некорректный email'),
+  email: z
+    .string({
+      required_error: 'Обязательное поле'
+    })
+    .min(1, 'Обязательное поле')
+    .email('Некорректный email'),
   active: z.boolean()
 })
 

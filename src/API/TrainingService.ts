@@ -1,5 +1,6 @@
 import { ConfirmParticipationParams } from '@/types/ConfirmParticipationParams'
 import { RefuseParticipationParams } from '@/types/RefuseParticipationParams'
+import { ReturnType } from '@/types/ReturnType'
 import { SendToProdParams } from '@/types/SendToProdParams'
 import { SubmitApplicationParams } from '@/types/SubmitApplicationParams'
 import { TakeEntranceTestParams } from '@/types/TakeEntranceTestParams'
@@ -19,7 +20,7 @@ export default class TrainingService {
   }
 
   static async refuseParticipation(data: RefuseParticipationParams) {
-    const response = await axios.post<string>(
+    const response = await axios.post<ReturnType>(
       '/training/refuse-participation',
       data
     )
@@ -30,7 +31,7 @@ export default class TrainingService {
   }
 
   static async confirmParticipation(data: ConfirmParticipationParams) {
-    const response = await axios.post<string>(
+    const response = await axios.post<ReturnType>(
       '/training/confirm-participation',
       data
     )
@@ -47,7 +48,7 @@ export default class TrainingService {
     id: number
     data: TakeEntranceTestParams
   }) {
-    const response = await axios.post<string>(
+    const response = await axios.post<ReturnType>(
       `/training/take-entrance-test/${id}`,
       data
     )
@@ -100,7 +101,7 @@ export default class TrainingService {
     id: number
     data: TakeEntranceTestParams
   }) {
-    const response = await axios.post<string>(
+    const response = await axios.post<ReturnType>(
       `/training/take-practice-task/${id}`,
       data
     )
@@ -117,7 +118,7 @@ export default class TrainingService {
     id: number
     data: TakeEntranceTestParams
   }) {
-    const response = await axios.post<string>(
+    const response = await axios.post<ReturnType>(
       `/training/take-module-test/${id}`,
       data
     )

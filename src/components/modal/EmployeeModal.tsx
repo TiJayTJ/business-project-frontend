@@ -333,7 +333,7 @@ export const EmployeeModal: FC<EmployeeModalProps> = ({
                 />
               }
               edit={edit}
-              label="Дата подачи заявки"
+              label="Последняя активность"
             >
               {dayjs(getValues('start')).format('D MMMM YYYY')}
             </PostInfo>

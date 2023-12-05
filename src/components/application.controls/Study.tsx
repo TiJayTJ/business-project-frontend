@@ -9,9 +9,10 @@ import { ControlPopover } from './ControlPopover'
 import { ControlProps, PropsWithId } from './controlTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { notifications } from '@/utils/helpers'
+import { getNotify, notifications } from '@/utils/helpers'
 import { TestType } from '@/types/TestType'
 import { NumberInput, Select } from '@mantine/core'
+import { ReturnType } from '@/types/ReturnType'
 
 const resultFormSchema = z.object({
   date: z.date({ required_error: 'Обязательное поле' }),
@@ -50,13 +51,23 @@ export const Study = ({ id, disabled, setAction, practice }: StudyProps) => {
     mutationFn: practice
       ? TrainingService.takePractice
       : TrainingService.takeModule,
-    onSuccess: () => {
+    onSuccess: (result) => {
       setOpened(false)
-      setAction()
-      notifications.success({
-        title: 'Результат сохранён',
-        message: ''
-      })
+
+      const { notify } = getNotify(
+        { title: practice ? 'Задание сдано' : 'Модуль сдан' },
+        { title: practice ? 'Задание не сдано' : 'Модуль не сдан' },
+        {
+          title: practice ? 'Задание не сдано' : 'Модуль не сдан',
+          message: 'Пропущен дедлайн'
+        },
+        { title: 'Сдача отклонена', message: 'Некорректная дата' },
+        result
+      )
+
+      notify()
+
+      result === ReturnType.TIME_UP && setAction()
     }
   })
 

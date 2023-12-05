@@ -8,7 +8,8 @@ import { ControlPopover } from './ControlPopover'
 import { ControlProps, PropsWithId } from './controlTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { notifications } from '@/utils/helpers'
+import { getNotify, notifications } from '@/utils/helpers'
+import { ReturnType } from '@/types/ReturnType'
 
 const confirmSchema = z.object({
   date: z.date({ required_error: 'Обязательное поле' })
@@ -33,13 +34,20 @@ export const Confirm = ({ id, disabled, setAction }: ControlProps) => {
 
   const { mutateAsync, error } = useMutation({
     mutationFn: TrainingService.confirmParticipation,
-    onSuccess: () => {
+    onSuccess: (result) => {
       setOpened(false)
-      setAction()
-      notifications.success({
-        title: 'Заявка принята',
-        message: ''
-      })
+
+      const { notify, success } = getNotify(
+        { title: 'Заявка принята' },
+        { title: '' },
+        { title: 'Заявка отклонена', message: 'Пропущен дедлайн' },
+        { title: 'Заявка отклонена', message: 'Некорректная дата' },
+        result
+      )
+
+      notify()
+
+      setAction(success)
     }
   })
 

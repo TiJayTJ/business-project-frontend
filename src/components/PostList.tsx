@@ -7,7 +7,7 @@ import { UserStageGroup } from '@/types/UserStageGroup.ts'
 import PostService from '@/API/EmployeeService.ts'
 import { groupStages } from '@/utils/constants.ts'
 import { GroupContext } from '@/context/GroupContext.ts'
-import { Skeleton, Stack } from '@mantine/core'
+import { Avatar, Center, Skeleton, Stack, Text } from '@mantine/core'
 import { SelectStage } from './selectStage/SelectStage.tsx'
 import { UserStage } from '@/types/UserStage.ts'
 import { useSortedPosts } from './hooks/usePost.tsx'
@@ -44,11 +44,25 @@ export const PostList: FC<PostListProps> = ({ stages, search, sort }) => {
         [...Array(5)].map((_, index) => (
           <Skeleton key={index} height={88} radius="lg" />
         ))}
-      {isError && <h1>Произошла ошибка ${error.message}</h1>}
+      {isError && (
+        <Center p="xl">
+          <Text size="xl" c="red">
+            Произошла ошибка {error.message}
+          </Text>
+        </Center>
+      )}
       {isSuccess &&
         sortedPosts.map((post, index) => (
           <PostItem key={post.id} index={index + 1} post={post} />
         ))}
+      {isSuccess && sortedPosts.length === 0 && (
+        <Stack justify="center" align="center" p="xl">
+          <Avatar size={128} />
+          <Text size="xl" fw={700}>
+            Сотрудники не найдены
+          </Text>
+        </Stack>
+      )}
     </Stack>
   )
 }

@@ -4,7 +4,7 @@ export interface PropsWithId {
 
 export interface ControlProps extends PropsWithId {
   disabled: boolean
-  setAction: () => void
+  setAction: (result?: boolean) => void
 }
 
 export enum Action {

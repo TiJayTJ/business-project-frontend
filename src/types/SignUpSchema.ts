@@ -11,7 +11,9 @@ export const signUpSchema = z.object({
   employeeJobTitle: z.string().min(1, 'Обязательное поле'),
   trainingPurpose: z.string().min(1, 'Обязательное поле'),
   employeeMail: z
-    .string()
+    .string({
+      required_error: 'Обязательное поле'
+    })
     .min(1, 'Обязательное поле')
     .email('Некорректный email'),
   date: z.date({

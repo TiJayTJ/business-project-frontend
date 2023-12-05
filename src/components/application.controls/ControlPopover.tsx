@@ -14,6 +14,8 @@ import {
   SetStateAction
 } from 'react'
 import { MyButton } from '../UI/button/MyButton'
+import { AxiosError } from 'axios'
+import { BackendError } from '@/types/BackendError'
 
 interface ControlPopoverProps extends PropsWithChildren {
   icon: ReactNode
@@ -66,7 +68,8 @@ export const ControlPopover: FC<ControlPopoverProps> = ({
           <Stack mt="lg">
             {error && (
               <Text fz="sm" c="red">
-                Произошла ошибка {error.message}
+                Произошла ошибка:{' '}
+                {(error as unknown as BackendError).response.data.message}
               </Text>
             )}
             <MyButton fullWidth type="submit" loading={loading}>
