@@ -76,7 +76,7 @@ export const groupStages: Record<UserStageGroup, UserStage[]> = {
     UserStage.PASSES_ENTRANCE_TEST,
     UserStage.FAILED_ENTRANCE_TEST
   ],
-  [UserStageGroup.STUDYING]: [UserStage.STUDYING],
+  [UserStageGroup.STUDYING]: [UserStage.STUDYING, UserStage.FAILED_STUDYING],
   [UserStageGroup.PRODUCTION_PRACTICE]: [
     UserStage.EXPECTS_PRODUCTION_PRACTICE,
     UserStage.PRODUCTION_PRACTICE

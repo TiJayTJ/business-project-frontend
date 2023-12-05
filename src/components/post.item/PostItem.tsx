@@ -54,7 +54,8 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
     group === UserStageGroup.PRODUCTION_PRACTICE &&
     post.stage === UserStage.PRODUCTION_PRACTICE
 
-  const studyingStage = group === UserStageGroup.STUDYING
+  const studyingStage =
+    group === UserStageGroup.STUDYING && post.stage === UserStage.STUDYING
 
   return (
     <>
