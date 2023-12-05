@@ -4,7 +4,14 @@ import { Action, PropsWithId } from './controlTypes'
 import { Confirm } from './Confirm'
 import { useState } from 'react'
 import { IconCheck, IconX } from '@tabler/icons-react'
-export const ApplicationControls = ({ id }: PropsWithId) => {
+import { UserStage } from '@/types/UserStage'
+import { PassFailExam } from './PassFailExam'
+
+interface ExamControlsProps extends PropsWithId {
+  stage: UserStage
+}
+
+export const ExamControls = ({ id, stage }: ExamControlsProps) => {
   const [action, setAction] = useState<Action | null>(null)
 
   const confirm = action === Action.CONFIRM
@@ -14,16 +21,20 @@ export const ApplicationControls = ({ id }: PropsWithId) => {
     <Group gap="sm">
       {action === null && (
         <>
-          <Confirm
+          <PassFailExam
             id={id}
             setAction={() => setAction(Action.CONFIRM)}
             disabled={confirm}
+            res={true}
           />
-          <Refuse
-            id={id}
-            setAction={() => setAction(Action.REFUSE)}
-            disabled={refuse}
-          />
+          {stage !== UserStage.FAILED_EXAM && (
+            <PassFailExam
+              id={id}
+              setAction={() => setAction(Action.REFUSE)}
+              disabled={refuse}
+              res={false}
+            />
+          )}
         </>
       )}
       {action !== null && (
@@ -36,7 +47,7 @@ export const ApplicationControls = ({ id }: PropsWithId) => {
           color={confirm ? 'green' : 'red'}
           variant="light"
         >
-          {confirm ? 'Одобрена' : 'Отклонена'}
+          {confirm ? 'Сдал' : 'Не сдал'}
         </Button>
       )}
     </Group>

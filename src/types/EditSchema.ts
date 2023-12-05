@@ -18,6 +18,7 @@ export const editSchema = z.object({
     required_error: 'Обязательное поле'
   }),
   reason: z.string().nullable(),
+  email: z.string().min(1, 'Обязательное поле').email('Некорректный email'),
   active: z.boolean()
 })
 

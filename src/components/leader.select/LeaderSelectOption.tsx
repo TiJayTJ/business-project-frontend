@@ -13,7 +13,7 @@ export const LeaderSelectOption: FC<LeaderSelectOptionProps> = ({
   ...props
 }) => {
   return (
-    <Group gap="sm" {...props}>
+    <Group gap="sm" wrap="nowrap" {...props}>
       <Avatar />
       <Stack gap={2}>
         <Text size="sm" fw={500}>

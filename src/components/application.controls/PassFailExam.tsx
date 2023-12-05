@@ -1,31 +1,39 @@
 import TrainingService from '@/API/TrainingService'
-import { IconCheck } from '@tabler/icons-react'
+import { IconCheck, IconX } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
 import { MyDateInput } from '../UI/myDateInput/MyDateInput'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { ControlPopover } from './ControlPopover'
+import { ControlProps, PropsWithId } from './controlTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { notifications } from '@/utils/helpers'
-import { ControlPopover } from '../application.controls/ControlPopover'
-import { MyInput } from '../UI/input/MyInput'
 
-const resultSchema = z.object({
-  date: z.date({ required_error: 'Обязательное поле' }),
-  score: z.number({ required_error: 'Обязательное поле' })
+const passSchema = z.object({
+  date: z.date({ required_error: 'Обязательное поле' })
 })
 
-type ResultSchema = z.infer<typeof resultSchema>
+type PassSchema = z.infer<typeof passSchema>
 
-export const ResultPopover = ({ id, disabled, setAction }: ControlProps) => {
+interface PassFailExamProps extends ControlProps {
+  res: boolean
+}
+
+export const PassFailExam = ({
+  id,
+  disabled,
+  setAction,
+  res
+}: PassFailExamProps) => {
   const [opened, setOpened] = useState(false)
 
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<ResultSchema>({
-    resolver: zodResolver(resultSchema),
+  } = useForm<PassSchema>({
+    resolver: zodResolver(passSchema),
     mode: 'onBlur',
     defaultValues: {
       date: new Date()
@@ -33,21 +41,21 @@ export const ResultPopover = ({ id, disabled, setAction }: ControlProps) => {
   })
 
   const { mutateAsync, error } = useMutation({
-    mutationFn: TrainingService.confirmParticipation,
+    mutationFn: TrainingService.takeExam,
     onSuccess: () => {
       setOpened(false)
       setAction()
       notifications.success({
-        title: 'Заявка принята',
+        title: res ? 'Экзамен сдал' : 'Экзамен не сдал',
         message: ''
       })
     }
   })
 
-  const onSubmit = async (data: ResultSchema) => {
+  const onSubmit = async (data: PassSchema) => {
     await mutateAsync({
-      employeeId: id,
-      ...data
+      id,
+      data: { res, ...data }
     })
   }
 
@@ -56,8 +64,8 @@ export const ResultPopover = ({ id, disabled, setAction }: ControlProps) => {
       disabled={disabled}
       opened={opened}
       setOpened={setOpened}
-      icon={<IconCheck />}
-      color="green"
+      icon={res ? <IconCheck /> : <IconX />}
+      color={res ? 'green' : 'red'}
       action={handleSubmit(onSubmit)}
       loading={isSubmitting}
       error={error}
@@ -67,7 +75,7 @@ export const ResultPopover = ({ id, disabled, setAction }: ControlProps) => {
         control={control}
         render={({ field }) => (
           <MyDateInput
-            label="Дата принятия"
+            label={res ? 'Дата сдачи' : 'Дата несдачи'}
             popoverProps={{ withinPortal: false }}
             withAsterisk
             error={errors.date?.message}
@@ -75,7 +83,6 @@ export const ResultPopover = ({ id, disabled, setAction }: ControlProps) => {
           />
         )}
       />
-      <MyInput />
     </ControlPopover>
   )
 }

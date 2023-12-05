@@ -6,5 +6,6 @@ export type SubmitApplicationParams = {
   employeePatronymic: string
   employeeJobTitle: string
   trainingPurpose: string
+  employeeMail: string
   date: Date
 }

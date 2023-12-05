@@ -69,7 +69,9 @@ export const EmployeeModal: FC<EmployeeModalProps> = ({
     formState: { errors, isSubmitting },
     reset
   } = useForm<EditSchema>({
-    resolver: zodResolver(editSchema)
+    resolver: zodResolver(editSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   })
 
   useEffect(() => {
@@ -92,7 +94,8 @@ export const EmployeeModal: FC<EmployeeModalProps> = ({
       leader: data.leader.id,
       start: data.startTime,
       reason: data.reasonForRefuseTraining,
-      active: data.active
+      email: data.email,
+      active: data.isActive
     } satisfies EditSchema)
   }, [data])
 
@@ -229,6 +232,19 @@ export const EmployeeModal: FC<EmployeeModalProps> = ({
           </Paper>
           <Stack gap="xs">
             <Text fw={700}>Основное</Text>
+            <PostInfo
+              edit={edit}
+              input={
+                <MyInput
+                  {...register('email')}
+                  error={errors.email?.message}
+                  placeholder="Введите email"
+                />
+              }
+              label="Почта"
+            >
+              {getValues('email')}
+            </PostInfo>
             <PostInfo
               edit={edit}
               input={

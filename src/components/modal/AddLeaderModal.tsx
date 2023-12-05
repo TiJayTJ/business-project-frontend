@@ -35,7 +35,8 @@ export const AddLeaderModal: FC<AddLeaderModalProps> = ({
     reset
   } = useForm<AddLeaderSchema>({
     resolver: zodResolver(addLeaderSchema),
-    mode: 'onSubmit'
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   })
 
   const queryClient = useQueryClient()

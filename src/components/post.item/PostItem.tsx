@@ -19,7 +19,10 @@ import { UserStageGroup } from '@/types/UserStageGroup'
 import { ModalContext } from '@/context/ModalContext'
 import { ApplicationControls } from '../application.controls/ApplicationControls'
 import { UserStage } from '@/types/UserStage'
-import { EntranceTestControls } from '../entrance.test.controls/EntranceTestControls'
+import { ResultFormPopover } from '../entrance.test.controls/ResultFormPopover'
+import { ExamControls } from '../application.controls/ExamControls'
+
+import { SendToProdControls } from '../application.controls/SendToProdControls'
 
 interface PostItemProps {
   index: number
@@ -38,6 +41,13 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
     group === UserStageGroup.ENTRANCE_TEST &&
     post.stage === UserStage.PASSES_ENTRANCE_TEST
 
+  const examStage =
+    group === UserStageGroup.EXAM && post.stage !== UserStage.GRADUATED
+
+  const expectsPractice =
+    group === UserStageGroup.PRODUCTION_PRACTICE &&
+    post.stage === UserStage.EXPECTS_PRODUCTION_PRACTICE
+
   return (
     <>
       <Paper
@@ -47,6 +57,7 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
         withBorder
         w="100%"
         className={styles.root}
+        pr="lg"
       >
         <Group
           p="md"
@@ -66,7 +77,9 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
           </Stack>
         </Group>
         {applicationStage && <ApplicationControls id={post.id} />}
-        {entranceStage && <EntranceTestControls id={post.id} />}
+        {entranceStage && <ResultFormPopover id={post.id} />}
+        {examStage && <ExamControls id={post.id} stage={post.stage} />}
+        {expectsPractice && <SendToProdControls id={post.id} />}
       </Paper>
     </>
   )

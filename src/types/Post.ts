@@ -13,5 +13,6 @@ export type Post = {
   leader: Leader
   startTime: Date
   reasonForRefuseTraining: string | null
-  active: boolean
+  email: string
+  isActive: boolean
 }

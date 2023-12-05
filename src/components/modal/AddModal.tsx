@@ -30,7 +30,9 @@ export const AddModal: FC<AddModalProps> = ({
     formState: { errors, isSubmitting },
     reset
   } = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema)
+    resolver: zodResolver(signUpSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit'
   })
 
   const queryClient = useQueryClient()
@@ -85,6 +87,13 @@ export const AddModal: FC<AddModalProps> = ({
               placeholder="Введите отчество"
               label="Отчество"
               error={errors.employeePatronymic?.message}
+            />
+            <MyInput
+              {...register('employeeMail')}
+              label="Почта"
+              placeholder="Введите email"
+              withAsterisk
+              error={errors.employeeMail?.message}
             />
             <MyInput
               {...register('employeeJobTitle')}

@@ -26,11 +26,12 @@ export const stageName: Record<UserStage, string> = {
   [UserStage.PASSES_ENTRANCE_TEST]: 'Вступительный тест',
   [UserStage.FAILED_ENTRANCE_TEST]: 'Не прошел вступительный тест',
   [UserStage.STUDYING]: 'Обучение',
+  [UserStage.FAILED_STUDYING]: 'Провалил обучение',
   [UserStage.EXPECTS_PRODUCTION_PRACTICE]: 'Ожидает производственную практику',
   [UserStage.PRODUCTION_PRACTICE]: 'Производственная практика',
   [UserStage.EXAM]: 'Экзамен',
-  [UserStage.FAILED_EXAM]: 'Не сдал экзамен',
-  [UserStage.PASSED_EXAM]: 'Сдал экзамен'
+  [UserStage.GRADUATED]: 'Выпущен',
+  [UserStage.FAILED_EXAM]: 'Не сдал'
 }
 
 export const stageColor: Record<UserStage, DefaultMantineColor> = {
@@ -39,11 +40,12 @@ export const stageColor: Record<UserStage, DefaultMantineColor> = {
   [UserStage.PASSES_ENTRANCE_TEST]: 'teal',
   [UserStage.FAILED_ENTRANCE_TEST]: 'red',
   [UserStage.STUDYING]: 'orange',
+  [UserStage.FAILED_STUDYING]: 'pink',
   [UserStage.EXPECTS_PRODUCTION_PRACTICE]: 'cyan',
   [UserStage.PRODUCTION_PRACTICE]: 'indigo',
   [UserStage.EXAM]: 'violet',
-  [UserStage.FAILED_EXAM]: 'red',
-  [UserStage.PASSED_EXAM]: 'teal'
+  [UserStage.GRADUATED]: 'lime',
+  [UserStage.FAILED_EXAM]: 'red'
 }
 
 export const groupName = {
@@ -81,7 +83,7 @@ export const groupStages: Record<UserStageGroup, UserStage[]> = {
   ],
   [UserStageGroup.EXAM]: [
     UserStage.EXAM,
-    UserStage.PASSED_EXAM,
+    UserStage.GRADUATED,
     UserStage.FAILED_EXAM
   ]
 }

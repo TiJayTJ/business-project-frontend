@@ -23,7 +23,7 @@ interface ControlPopoverProps extends PropsWithChildren {
   error: Error | null
   opened: boolean
   setOpened: Dispatch<SetStateAction<boolean>>
-  disabled: boolean
+  disabled?: boolean
 }
 
 export const ControlPopover: FC<ControlPopoverProps> = ({
