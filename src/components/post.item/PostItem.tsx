@@ -23,6 +23,8 @@ import { ResultFormPopover } from '../entrance.test.controls/ResultFormPopover'
 import { ExamControls } from '../application.controls/ExamControls'
 
 import { SendToProdControls } from '../application.controls/SendToProdControls'
+import { PracticeControls } from '../application.controls/PracticeControls'
+import { StudyControls } from '../application.controls/StudyControls'
 
 interface PostItemProps {
   index: number
@@ -47,6 +49,12 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
   const expectsPractice =
     group === UserStageGroup.PRODUCTION_PRACTICE &&
     post.stage === UserStage.EXPECTS_PRODUCTION_PRACTICE
+
+  const practiceStage =
+    group === UserStageGroup.PRODUCTION_PRACTICE &&
+    post.stage === UserStage.PRODUCTION_PRACTICE
+
+  const studyingStage = group === UserStageGroup.STUDYING
 
   return (
     <>
@@ -80,6 +88,8 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
         {entranceStage && <ResultFormPopover id={post.id} />}
         {examStage && <ExamControls id={post.id} stage={post.stage} />}
         {expectsPractice && <SendToProdControls id={post.id} />}
+        {practiceStage && <PracticeControls id={post.id} />}
+        {studyingStage && <StudyControls id={post.id} />}
       </Paper>
     </>
   )

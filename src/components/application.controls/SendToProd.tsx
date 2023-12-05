@@ -49,6 +49,8 @@ export const SendToProd = ({ id, disabled, setAction }: ControlProps) => {
     }
   })
 
+  const [canClose, setCanClose] = useState(true)
+
   const onSubmit = async (data: SendToProdSchema) => {
     await mutateAsync({ employeeId: id, ...data })
   }
@@ -57,7 +59,9 @@ export const SendToProd = ({ id, disabled, setAction }: ControlProps) => {
     <ControlPopover
       disabled={disabled}
       opened={opened}
-      setOpened={setOpened}
+      setOpened={(o) => {
+        canClose && setOpened(o)
+      }}
       icon={<IconArrowNarrowRight />}
       color="indigo"
       action={handleSubmit(onSubmit)}
@@ -73,6 +77,9 @@ export const SendToProd = ({ id, disabled, setAction }: ControlProps) => {
             error={errors.leaderId?.message}
             label="Руководитель"
             withAsterisk
+            withinPortal={false}
+            onCreate={() => setCanClose(false)}
+            onCreateEnd={() => setCanClose(true)}
           />
         )}
       />

@@ -29,6 +29,7 @@ export interface LeaderSelectPrimitiveProps extends InputBaseProps {
   search: string
   setSearch: Dispatch<string>
   loading?: boolean
+  withinPortal?: boolean
 }
 
 export const LeaderSelectPrimitive = forwardRef<
@@ -44,6 +45,7 @@ export const LeaderSelectPrimitive = forwardRef<
       search,
       setSearch,
       loading,
+      withinPortal = true,
       ...props
     },
     ref
@@ -87,6 +89,7 @@ export const LeaderSelectPrimitive = forwardRef<
         size="md"
         radius="md"
         classNames={{ option: styles.option }}
+        withinPortal={withinPortal}
       >
         <Combobox.Target>
           <InputBase

@@ -75,4 +75,55 @@ export default class TrainingService {
 
     return response.data
   }
+
+  static async practiceResult({
+    id,
+    data
+  }: {
+    id: number
+    data: TakeExamParams
+  }) {
+    const response = await axios.post<string>(
+      `/training/production-practice-result/${id}`,
+      data
+    )
+
+    // await new Promise((resolve) => setTimeout(resolve, 500))
+
+    return response.data
+  }
+
+  static async takePractice({
+    id,
+    data
+  }: {
+    id: number
+    data: TakeEntranceTestParams
+  }) {
+    const response = await axios.post<string>(
+      `/training/take-practice-task/${id}`,
+      data
+    )
+
+    // await new Promise((resolve) => setTimeout(resolve, 500))
+
+    return response.data
+  }
+
+  static async takeModule({
+    id,
+    data
+  }: {
+    id: number
+    data: TakeEntranceTestParams
+  }) {
+    const response = await axios.post<string>(
+      `/training/take-module-test/${id}`,
+      data
+    )
+
+    // await new Promise((resolve) => setTimeout(resolve, 500))
+
+    return response.data
+  }
 }

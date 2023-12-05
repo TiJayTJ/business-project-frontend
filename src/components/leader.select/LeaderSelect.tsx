@@ -13,11 +13,14 @@ import { useDisclosure } from '@mantine/hooks'
 interface LeaderSelectProps
   extends Omit<
     LeaderSelectPrimitiveProps,
-    'options' | 'onCreate' | 'search' | 'setSearch' | 'loading'
-  > {}
+    'options' | 'search' | 'setSearch' | 'loading' | 'onCreate'
+  > {
+  onCreate?: () => void
+  onCreateEnd?: () => void
+}
 
 export const LeaderSelect = forwardRef<HTMLButtonElement, LeaderSelectProps>(
-  ({ onChange, ...props }, ref) => {
+  ({ onChange, onCreate, onCreateEnd, ...props }, ref) => {
     const [dirtySearch, setDirtySearch] = useState('')
     const [opened, { open, close }] = useDisclosure(false)
 
@@ -30,13 +33,23 @@ export const LeaderSelect = forwardRef<HTMLButtonElement, LeaderSelectProps>(
 
     return (
       <>
-        <AddLeaderModal opened={opened} onClose={close} setId={onChange} />
+        <AddLeaderModal
+          opened={opened}
+          onClose={() => {
+            close()
+            onCreateEnd?.()
+          }}
+          setId={onChange}
+        />
         <LeaderSelectPrimitive
           {...props}
           ref={ref}
           onChange={onChange}
           options={data || []}
-          onCreate={open}
+          onCreate={() => {
+            open()
+            onCreate?.()
+          }}
           search={dirtySearch}
           setSearch={setDirtySearch}
           loading={isPending}
