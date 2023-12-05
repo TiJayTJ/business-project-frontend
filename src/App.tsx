@@ -55,7 +55,7 @@ function App() {
             }}
           >
             <AppShell.Header withBorder={false}>
-              <Header setRoute={setRoute} />
+              <Header setRoute={setRoute} route={route} />
             </AppShell.Header>
             <AppShell.Main>
               {/* <Outlet /> */}

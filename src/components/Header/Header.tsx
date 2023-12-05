@@ -8,14 +8,14 @@ interface TabProps extends PropsWithChildren, HeaderProps {
   to: string
 }
 
-const Tab: FC<TabProps> = (props) => {
+const Tab: FC<TabProps> = ({ setRoute, route, ...props }) => {
   // const { pathname } = useLocation()
 
   return (
     <Box
-      onClick={() => props.setRoute(props.to)}
+      onClick={() => setRoute(props.to)}
       // component={Link}
-      className={clsx(styles.tab, { [styles.active]: false })}
+      className={clsx(styles.tab, { [styles.active]: route === props.to })}
       {...props}
       // underline="never"
     />
@@ -24,16 +24,17 @@ const Tab: FC<TabProps> = (props) => {
 
 interface HeaderProps {
   setRoute: (route: string) => void
+  route: string
 }
 
-export const Header: FC<HeaderProps> = ({ setRoute }) => {
+export const Header: FC<HeaderProps> = ({ ...props }) => {
   return (
     <Container w="100%">
       <Group gap={0} className={styles.tabs}>
-        <Tab to="/" setRoute={setRoute}>
+        <Tab to="/" {...props}>
           Сотрудники
         </Tab>
-        <Tab to="/stats" setRoute={setRoute}>
+        <Tab to="/stats" {...props}>
           Статистика
         </Tab>
       </Group>
