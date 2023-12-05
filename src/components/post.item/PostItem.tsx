@@ -67,6 +67,7 @@ export const PostItem: FC<PostItemProps> = ({ index, post }) => {
         w="100%"
         className={styles.root}
         pr="lg"
+        display="flex"
       >
         <Group
           p="md"

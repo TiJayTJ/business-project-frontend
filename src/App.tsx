@@ -22,6 +22,9 @@ import '@mantine/notifications/styles.css'
 import { Notifications } from '@mantine/notifications'
 import { Header } from './components/Header/Header'
 import { Outlet } from 'react-router-dom'
+import { Home } from './components/pages/Home'
+import { useState } from 'react'
+import { Stats } from './components/pages/Stats'
 
 dayjs.extend(customParseFormat)
 dayjs.locale('ru')
@@ -29,6 +32,8 @@ dayjs.locale('ru')
 const queryClient = new QueryClient()
 
 function App() {
+  const [route, setRoute] = useState('/')
+
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
@@ -43,12 +48,18 @@ function App() {
             timezone: undefined
           }}
         >
-          <AppShell header={{ height: 60 }} classNames={styles}>
+          <AppShell
+            header={{ height: 60 }}
+            styles={{
+              header: { display: 'flex', alignItems: 'flex-end' }
+            }}
+          >
             <AppShell.Header withBorder={false}>
-              <Header />
+              <Header setRoute={setRoute} />
             </AppShell.Header>
             <AppShell.Main>
-              <Outlet />
+              {/* <Outlet /> */}
+              {route === '/' ? <Home /> : <Stats />}
             </AppShell.Main>
           </AppShell>
         </DatesProvider>
