@@ -1,5 +1,6 @@
-import React, { FC, ButtonHTMLAttributes, forwardRef } from 'react'
-import { Button, ButtonProps } from '@mantine/core'
+import { forwardRef, type ButtonHTMLAttributes } from 'react'
+
+import { Button, type ButtonProps } from '@mantine/core'
 
 interface MyButtonProps
   extends ButtonProps,
@@ -8,7 +9,7 @@ interface MyButtonProps
 export const MyButton = forwardRef<HTMLButtonElement, MyButtonProps>(
   ({ ...props }: MyButtonProps, ref) => {
     return (
-      <Button ref={ref} {...props} variant="filled" size="md" radius="md" />
+      <Button ref={ref} variant="filled" size="md" radius="md" {...props} />
     )
   }
 )

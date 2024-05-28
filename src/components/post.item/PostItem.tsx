@@ -1,5 +1,5 @@
-import React, { FC, useContext } from 'react'
-import { Post } from '@/types/Post'
+import React, { type FC, useContext } from 'react'
+
 import {
   ActionIcon,
   Avatar,
@@ -9,22 +9,24 @@ import {
   Stack,
   Text
 } from '@mantine/core'
-import { stageColor, stageName } from '@/utils/constants'
 import { useDisclosure } from '@mantine/hooks'
-import styles from './PostItem.module.css'
-import { EmployeeModal } from '../modal/EmployeeModal'
 import { IconCheck, IconX } from '@tabler/icons-react'
-import { GroupContext } from '@/context/GroupContext'
-import { UserStageGroup } from '@/types/UserStageGroup'
-import { ModalContext } from '@/context/ModalContext'
-import { ApplicationControls } from '../application.controls/ApplicationControls'
-import { UserStage } from '@/types/UserStage'
-import { ResultFormPopover } from '../entrance.test.controls/ResultFormPopover'
-import { ExamControls } from '../application.controls/ExamControls'
 
-import { SendToProdControls } from '../application.controls/SendToProdControls'
+import { GroupContext } from '@/context/GroupContext'
+import { ModalContext } from '@/context/ModalContext'
+import { type Post } from '@/types/Post'
+import { UserStage } from '@/types/UserStage'
+import { UserStageGroup } from '@/types/UserStageGroup'
+import { stageColor, stageName } from '@/utils/constants'
+
+import { ApplicationControls } from '../application.controls/ApplicationControls'
+import { ExamControls } from '../application.controls/ExamControls'
 import { PracticeControls } from '../application.controls/PracticeControls'
+import { SendToProdControls } from '../application.controls/SendToProdControls'
 import { StudyControls } from '../application.controls/StudyControls'
+import { ResultFormPopover } from '../entrance.test.controls/ResultFormPopover'
+import { EmployeeModal } from '../modal/EmployeeModal'
+import styles from './PostItem.module.css'
 
 interface PostItemProps {
   index: number

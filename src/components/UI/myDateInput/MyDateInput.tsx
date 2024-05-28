@@ -1,5 +1,7 @@
-import React, { FC, forwardRef } from 'react'
-import { DateInput, DateInputProps } from '@mantine/dates'
+import React, { type FC, forwardRef } from 'react'
+
+import { DateInput, type DateInputProps } from '@mantine/dates'
+
 import { dateFormat, dateParser } from '@/utils/constants'
 
 interface MyDateInputProps extends DateInputProps {}

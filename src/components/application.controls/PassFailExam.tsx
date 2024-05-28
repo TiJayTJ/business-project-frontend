@@ -1,14 +1,17 @@
-import TrainingService from '@/API/TrainingService'
+import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import { IconCheck, IconX } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { MyDateInput } from '../UI/myDateInput/MyDateInput'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { ControlPopover } from './ControlPopover'
-import { ControlProps, PropsWithId } from './controlTypes'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
+
+import TrainingService from '@/API/TrainingService'
 import { notifications } from '@/utils/helpers'
+
+import { MyDateInput } from '../UI/myDateInput/MyDateInput'
+import { ControlPopover } from './ControlPopover'
+import { type ControlProps, PropsWithId } from './controlTypes'
 
 const passSchema = z.object({
   date: z.date({ required_error: 'Обязательное поле' })

@@ -41,3 +41,8 @@
     top: unset;
   }
 }
+
+.root {
+  display: flex;
+  justify-content: space-between;
+}

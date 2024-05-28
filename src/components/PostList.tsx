@@ -1,17 +1,20 @@
-import React, { FC, useContext, useState } from 'react'
-import { PostItem } from './post.item/PostItem.tsx'
-import { Post } from '@/types/Post'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { useQuery } from '@tanstack/react-query'
-import { UserStageGroup } from '@/types/UserStageGroup.ts'
-import PostService from '@/API/EmployeeService.ts'
-import { groupStages } from '@/utils/constants.ts'
-import { GroupContext } from '@/context/GroupContext.ts'
+import React, { type FC, useContext, useState } from 'react'
+
 import { Avatar, Center, Skeleton, Stack, Text } from '@mantine/core'
-import { SelectStage } from './selectStage/SelectStage.tsx'
-import { UserStage } from '@/types/UserStage.ts'
+import { useQuery } from '@tanstack/react-query'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
+import PostService from '@/API/EmployeeService.ts'
+import { GroupContext } from '@/context/GroupContext.ts'
+import { Post } from '@/types/Post'
+import { type SortValue } from '@/types/SortValue.ts'
+import { type UserStage } from '@/types/UserStage.ts'
+import { UserStageGroup } from '@/types/UserStageGroup.ts'
+import { groupStages } from '@/utils/constants.ts'
+
 import { useSortedPosts } from './hooks/usePost.tsx'
-import { SortValue } from '@/types/SortValue.ts'
+import { PostItem } from './post.item/PostItem.tsx'
+import { SelectStage } from './selectStage/SelectStage.tsx'
 
 interface PostListProps {
   stages: UserStage[]

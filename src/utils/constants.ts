@@ -1,8 +1,9 @@
+import { type DefaultMantineColor } from '@mantine/core'
+import { type DateInputProps } from '@mantine/dates'
+import dayjs from 'dayjs'
+
 import { UserStage } from '@/types/UserStage'
 import { UserStageGroup } from '@/types/UserStageGroup'
-import { DefaultMantineColor } from '@mantine/core'
-import { DateInputProps } from '@mantine/dates'
-import dayjs from 'dayjs'
 
 export const dateFormat = 'D MMMM YYYY'
 export const dateParser: DateInputProps['dateParser'] = (input) =>

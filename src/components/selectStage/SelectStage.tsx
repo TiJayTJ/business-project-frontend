@@ -1,16 +1,18 @@
-import { UserStage } from '@/types/UserStage'
+import { forwardRef, useState } from 'react'
+
 import {
   Badge,
   Combobox,
   Input,
   InputBase,
-  InputBaseProps,
+  type InputBaseProps,
   ScrollArea,
   useCombobox
 } from '@mantine/core'
-import { StageBadge } from '../StageBadge'
-import { forwardRef, useState } from 'react'
 
+import { UserStage } from '@/types/UserStage'
+
+import { StageBadge } from '../StageBadge'
 import styles from './SelectStage.module.css'
 
 interface SelectStageProps extends InputBaseProps {

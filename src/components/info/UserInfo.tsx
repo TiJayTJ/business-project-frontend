@@ -1,6 +1,8 @@
+import { type FC, PropsWithChildren, type ReactNode } from 'react'
+
 import { Input, Stack, Text } from '@mantine/core'
-import { FC, PropsWithChildren, ReactNode } from 'react'
-import { EditableInfo, EditableInfoProps } from './EditableInfo'
+
+import { EditableInfo, type EditableInfoProps } from './EditableInfo'
 
 interface PostInfoProps extends EditableInfoProps {
   label: ReactNode

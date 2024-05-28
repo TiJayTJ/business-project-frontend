@@ -1,9 +1,10 @@
 import { rem } from '@mantine/core'
 import {
-  NotificationData as MantineNotificationData,
+  type NotificationData as MantineNotificationData,
   notifications as mantineNotifications
 } from '@mantine/notifications'
 import { IconCheck, IconX } from '@tabler/icons-react'
+
 import { ReturnType } from '@/types/ReturnType'
 
 type NotificationData = Omit<MantineNotificationData, 'message'> & {

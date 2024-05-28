@@ -1,13 +1,14 @@
-import { ConfirmParticipationParams } from '@/types/ConfirmParticipationParams'
-import { RefuseParticipationParams } from '@/types/RefuseParticipationParams'
-import { ReturnType } from '@/types/ReturnType'
-import { SendToProdParams } from '@/types/SendToProdParams'
-import { SubmitApplicationParams } from '@/types/SubmitApplicationParams'
-import { TakeEntranceTestParams } from '@/types/TakeEntranceTestParams'
-import { TakeExamParams } from '@/types/TakeExamParams'
-import { UserStage } from '@/types/UserStage'
 import axios from 'axios'
 import dayjs from 'dayjs'
+
+import { type ConfirmParticipationParams } from '@/types/ConfirmParticipationParams'
+import { type RefuseParticipationParams } from '@/types/RefuseParticipationParams'
+import { type ReturnType } from '@/types/ReturnType'
+import { type SendToProdParams } from '@/types/SendToProdParams'
+import { type SubmitApplicationParams } from '@/types/SubmitApplicationParams'
+import { type TakeEntranceTestParams } from '@/types/TakeEntranceTestParams'
+import { type TakeExamParams } from '@/types/TakeExamParams'
+import { type UserStage } from '@/types/UserStage'
 
 export default class TrainingService {
   static async submit(data: SubmitApplicationParams) {

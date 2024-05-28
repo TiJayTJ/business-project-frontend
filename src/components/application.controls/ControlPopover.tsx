@@ -1,21 +1,24 @@
 import {
+  type Dispatch,
+  type FC,
+  type FormEventHandler,
+  type PropsWithChildren,
+  type ReactNode,
+  type SetStateAction
+} from 'react'
+
+import {
   ActionIcon,
-  DefaultMantineColor,
+  type DefaultMantineColor,
   Popover,
   Stack,
   Text
 } from '@mantine/core'
-import {
-  Dispatch,
-  FC,
-  FormEventHandler,
-  PropsWithChildren,
-  ReactNode,
-  SetStateAction
-} from 'react'
-import { MyButton } from '../UI/button/MyButton'
 import { AxiosError } from 'axios'
-import { BackendError } from '@/types/BackendError'
+
+import { type BackendError } from '@/types/BackendError'
+
+import { MyButton } from '../UI/button/MyButton'
 
 interface ControlPopoverProps extends PropsWithChildren {
   icon: ReactNode

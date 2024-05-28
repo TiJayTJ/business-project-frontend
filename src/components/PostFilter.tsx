@@ -1,9 +1,12 @@
-import React, { FC } from 'react'
-import { MyInput } from './UI/input/MyInput'
-import { MySelect } from './UI/select/MySelect'
+import React, { type FC } from 'react'
+
 import { Flex, rem } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
-import { SortValue } from '@/types/SortValue'
+
+import { type SortValue } from '@/types/SortValue'
+
+import { MyInput } from './UI/input/MyInput'
+import { MySelect } from './UI/select/MySelect'
 
 interface PostFilterProps {
   filter: {

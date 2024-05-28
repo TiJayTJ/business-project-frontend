@@ -1,8 +1,10 @@
-import { UserStage } from '@/types/UserStage'
-import { stageColor, stageName } from '@/utils/constants'
+import { type FC } from 'react'
+
 import { rgba } from '@mantine/core'
-import { FC } from 'react'
 import { Bar } from 'react-chartjs-2'
+
+import { type UserStage } from '@/types/UserStage'
+import { stageColor, stageName } from '@/utils/constants'
 
 export const options = {
   scales: { y: { beginAtZero: true } }

@@ -1,6 +1,8 @@
-import { Leader } from '@/types/Leader'
-import { Avatar, Group, GroupProps, Stack, Text } from '@mantine/core'
-import { FC } from 'react'
+import { type FC } from 'react'
+
+import { Avatar, Group, type GroupProps, Stack, Text } from '@mantine/core'
+
+import { type Leader } from '@/types/Leader'
 
 interface LeaderSelectOptionProps extends Leader, Omit<GroupProps, 'id'> {}
 

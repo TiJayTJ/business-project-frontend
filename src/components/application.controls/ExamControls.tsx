@@ -1,11 +1,14 @@
-import { Button, CheckIcon, Group } from '@mantine/core'
-import { Refuse } from './Refuse'
-import { Action, PropsWithId } from './controlTypes'
-import { Confirm } from './Confirm'
 import { useState } from 'react'
+
+import { Button, CheckIcon, Group } from '@mantine/core'
 import { IconCheck, IconX } from '@tabler/icons-react'
+
 import { UserStage } from '@/types/UserStage'
+
+import { Confirm } from './Confirm'
 import { PassFailExam } from './PassFailExam'
+import { Refuse } from './Refuse'
+import { Action, type PropsWithId } from './controlTypes'
 
 interface ExamControlsProps extends PropsWithId {
   stage: UserStage

@@ -1,23 +1,26 @@
+import { type Dispatch, FC, forwardRef, useMemo, useState } from 'react'
+
 import {
-  useCombobox,
-  Combobox,
-  InputBase,
-  Button,
-  Input,
-  Loader,
-  Skeleton,
   Box,
+  Button,
+  Combobox,
   Group,
-  Stack,
+  Input,
+  InputBase,
+  type InputBaseProps,
+  Loader,
   ScrollArea,
-  InputBaseProps
+  Skeleton,
+  Stack,
+  useCombobox
 } from '@mantine/core'
-import { Dispatch, FC, forwardRef, useMemo, useState } from 'react'
-import styles from './LeaderSelectPrimitive.module.css'
-import { IconPlus } from '@tabler/icons-react'
-import { Leader } from '@/types/Leader'
-import { LeaderSelectOption } from './LeaderSelectOption'
 import { usePrevious } from '@mantine/hooks'
+import { IconPlus } from '@tabler/icons-react'
+
+import { type Leader } from '@/types/Leader'
+
+import { LeaderSelectOption } from './LeaderSelectOption'
+import styles from './LeaderSelectPrimitive.module.css'
 
 type LeaderId = Leader['id'] | null
 

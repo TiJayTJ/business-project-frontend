@@ -1,71 +1,46 @@
-import '@mantine/core/styles.css'
-import styles from './App.module.css'
-import '@mantine/dates/styles.css'
-import {
-  ActionIcon,
-  AppShell,
-  Container,
-  Group,
-  MantineProvider,
-  Tabs
-} from '@mantine/core'
+import { useEffect } from 'react'
 
-import { DatesProvider } from '@mantine/dates'
+import { Navigate, Route, Routes, useSearchParams } from 'react-router-dom'
 
-import 'dayjs/locale/ru'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import dayjs from 'dayjs'
+import { PrivateRoute } from './PrivateRoute'
+import AuthorizationPage from './pages/AuthorizationPage'
+import RegisteredHome from './pages/RegisteredPage'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+const Callback = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
 
-import '@mantine/notifications/styles.css'
-import { Notifications } from '@mantine/notifications'
-import { Header } from './components/Header/Header'
-import { Outlet } from 'react-router-dom'
-import { Home } from './components/pages/Home'
-import { useState } from 'react'
-import { Stats } from './components/pages/Stats'
+  useEffect(() => {
+    const code = searchParams.get('code')
 
-dayjs.extend(customParseFormat)
-dayjs.locale('ru')
+    if (!code) return
 
-const queryClient = new QueryClient()
+    localStorage.setItem('token', code)
+  }, [])
+
+  return <Navigate to="/" replace />
+}
 
 function App() {
-  const [route, setRoute] = useState('/')
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider
-        defaultColorScheme="dark"
-        theme={{
-          primaryColor: 'violet'
-        }}
-      >
-        <DatesProvider
-          settings={{
-            locale: 'ru',
-            timezone: undefined
-          }}
-        >
-          <AppShell
-            header={{ height: 60 }}
-            styles={{
-              header: { display: 'flex', alignItems: 'flex-end' }
-            }}
-          >
-            <AppShell.Header withBorder={false}>
-              <Header setRoute={setRoute} route={route} />
-            </AppShell.Header>
-            <AppShell.Main>
-              {/* <Outlet /> */}
-              {route === '/' ? <Home /> : <Stats />}
-            </AppShell.Main>
-          </AppShell>
-        </DatesProvider>
-        <Notifications />
-      </MantineProvider>
-    </QueryClientProvider>
+    <Routes>
+      <Route
+        path="/*"
+        element={
+          <PrivateRoute>
+            <RegisteredHome />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <PrivateRoute redirect="/" invert>
+            <AuthorizationPage />
+          </PrivateRoute>
+        }
+      />
+      <Route path="/callback" element={<Callback />} />
+    </Routes>
   )
 }
 

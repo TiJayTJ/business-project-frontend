@@ -1,14 +1,17 @@
 import { FC, forwardRef, useEffect, useState } from 'react'
+
+import { useDisclosure } from '@mantine/hooks'
+import { useQuery } from '@tanstack/react-query'
+import { useDebounce } from 'use-debounce'
+
+import { LeadersService } from '@/API/LeadersService'
+import { Leader } from '@/types/Leader'
+
+import { AddLeaderModal } from '../modal/AddLeaderModal'
 import {
   LeaderSelectPrimitive,
-  LeaderSelectPrimitiveProps
+  type LeaderSelectPrimitiveProps
 } from './LeaderSelectPrimitive'
-import { Leader } from '@/types/Leader'
-import { useDebounce } from 'use-debounce'
-import { useQuery } from '@tanstack/react-query'
-import { LeadersService } from '@/API/LeadersService'
-import { AddLeaderModal } from '../modal/AddLeaderModal'
-import { useDisclosure } from '@mantine/hooks'
 
 interface LeaderSelectProps
   extends Omit<

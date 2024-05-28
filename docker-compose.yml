@@ -1,11 +1,11 @@
-version: "3.5"
+version: '3.5'
 services:
   client:
-     build: .
-     restart: unless-stopped
-     ports:
-      - "228:228"
-     networks:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '228:228'
+    networks:
       - app-network
 networks:
-   app-network:
+  app-network:

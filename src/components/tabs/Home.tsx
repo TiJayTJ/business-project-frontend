@@ -1,25 +1,26 @@
-import { ActionIcon, Container, Group, Tabs } from '@mantine/core'
-
-import { IconUserPlus } from '@tabler/icons-react'
-import { PostFilter } from '../PostFilter'
-import { useDisclosure } from '@mantine/hooks'
 import { useEffect, useState } from 'react'
 
-import PostService from '@/API/EmployeeService'
-import { groupColor, groupName, groupStages } from '@/utils/constants'
-import { UserStageGroup } from '@/types/UserStageGroup'
-import styles from './StageChip.module.css'
-import { PostList } from '../PostList'
+import { ActionIcon, Container, Group, Tabs } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { IconUserPlus } from '@tabler/icons-react'
 import { useQuery } from '@tanstack/react-query'
-import { AddModal } from '../modal/AddModal'
-import { UserStage } from '@/types/UserStage'
-import { GroupContext } from '@/context/GroupContext'
-import { EmployeeModal } from '../modal/EmployeeModal'
-import { ModalContext } from '@/context/ModalContext'
 import { useDebounce } from 'use-debounce'
-import { SelectStage } from '../selectStage/SelectStage'
-import { SortValue } from '@/types/SortValue'
+
+import PostService from '@/API/EmployeeService'
+import { GroupContext } from '@/context/GroupContext'
+import { ModalContext } from '@/context/ModalContext'
+import { type SortValue } from '@/types/SortValue'
+import { type UserStage } from '@/types/UserStage'
+import { UserStageGroup } from '@/types/UserStageGroup'
+import { groupColor, groupName, groupStages } from '@/utils/constants'
+
+import { PostFilter } from '../PostFilter'
+import { PostList } from '../PostList'
 import { LeaderSelect } from '../leader.select'
+import { AddModal } from '../modal/AddModal'
+import { EmployeeModal } from '../modal/EmployeeModal'
+import { SelectStage } from '../selectStage/SelectStage'
+import styles from './StageChip.module.css'
 
 export const Home = () => {
   const [filter, setFilter] = useState({ sort: null as SortValue, query: '' })

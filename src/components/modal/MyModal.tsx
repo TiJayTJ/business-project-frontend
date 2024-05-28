@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
-import { Modal, ModalProps, ScrollArea, Text } from '@mantine/core'
+import React, { type FC } from 'react'
+
+import { Modal, type ModalProps, ScrollArea, Text } from '@mantine/core'
+
 import styles from './MyModal.module.css'
 
 interface MyModalProps extends ModalProps {}

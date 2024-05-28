@@ -1,12 +1,15 @@
-import { Button, CheckIcon, Group } from '@mantine/core'
-import { Refuse } from './Refuse'
-import { Action, PropsWithId } from './controlTypes'
-import { Confirm } from './Confirm'
 import { useState } from 'react'
+
+import { Button, CheckIcon, Group } from '@mantine/core'
 import { IconCheck, IconX } from '@tabler/icons-react'
+
 import { UserStage } from '@/types/UserStage'
+
+import { Confirm } from './Confirm'
 import { PassFailExam } from './PassFailExam'
 import { PracticeResult } from './PracticeResult'
+import { Refuse } from './Refuse'
+import { Action, type PropsWithId } from './controlTypes'
 
 export const PracticeControls = ({ id }: PropsWithId) => {
   const [action, setAction] = useState<Action | null>(null)

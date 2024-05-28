@@ -1,5 +1,6 @@
-import React, { FC, forwardRef } from 'react'
-import { Textarea, TextareaProps } from '@mantine/core'
+import React, { type FC, forwardRef } from 'react'
+
+import { Textarea, type TextareaProps } from '@mantine/core'
 
 interface MyTextAreaProps extends TextareaProps {}
 

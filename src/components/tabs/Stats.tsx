@@ -1,26 +1,28 @@
-import { Box, Container, Group } from '@mantine/core'
-import { FC } from 'react'
-import { MyDateInput } from '../UI/myDateInput/MyDateInput'
-import { MyButton } from '../UI/button/MyButton'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, useForm } from 'react-hook-form'
-import { useMutation } from '@tanstack/react-query'
-import TrainingService from '@/API/TrainingService'
+import { type FC } from 'react'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Box, Container, Group } from '@mantine/core'
+import { useMutation } from '@tanstack/react-query'
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
-  Tooltip,
-  Legend
+  Tooltip
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import { Controller, useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import TrainingService from '@/API/TrainingService'
 import { UserStage } from '@/types/UserStage'
 import { stageName } from '@/utils/constants'
+
 import { StartsChart } from '../StatsChart'
+import { MyButton } from '../UI/button/MyButton'
+import { MyDateInput } from '../UI/myDateInput/MyDateInput'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 

@@ -1,17 +1,20 @@
-import TrainingService from '@/API/TrainingService'
+import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import { IconArrowNarrowRight, IconX } from '@tabler/icons-react'
 import { useMutation } from '@tanstack/react-query'
-import { MyTextArea } from '../UI/textArea/MyTextArea'
-import { MyDateInput } from '../UI/myDateInput/MyDateInput'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { ControlPopover } from './ControlPopover'
-import { ControlProps } from './controlTypes'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
+
+import TrainingService from '@/API/TrainingService'
 import { notifications } from '@/utils/helpers'
-import { LeaderSelect } from '../leader.select'
+
 import { MyInput } from '../UI/input/MyInput'
+import { MyDateInput } from '../UI/myDateInput/MyDateInput'
+import { MyTextArea } from '../UI/textArea/MyTextArea'
+import { LeaderSelect } from '../leader.select'
+import { ControlPopover } from './ControlPopover'
+import { type ControlProps } from './controlTypes'
 
 const sendToProdSchema = z.object({
   leaderId: z.number({ required_error: 'Обязательное поле' }),

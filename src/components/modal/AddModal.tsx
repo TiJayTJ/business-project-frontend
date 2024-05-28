@@ -1,21 +1,24 @@
-import { Post } from '@/types/Post'
-import { Group, Modal, ModalProps, Stack, Text } from '@mantine/core'
+import { type FC } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Group, Modal, type ModalProps, Stack, Text } from '@mantine/core'
 import { DateInput, DateInputProps } from '@mantine/dates'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+
 import TrainingService from '@/API/TrainingService'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { MyModal } from './MyModal'
-import { SignUpSchema, signUpSchema } from '../../types/SignUpSchema'
-import { MyInput } from '../UI/input/MyInput'
-import { MyTextArea } from '../UI/textArea/MyTextArea'
-import { MyButton } from '../UI/button/MyButton'
+import { Post } from '@/types/Post'
 import { dateFormat, dateParser } from '@/utils/constants'
 import { notifications } from '@/utils/helpers'
+
+import { type SignUpSchema, signUpSchema } from '../../types/SignUpSchema'
+import { MyButton } from '../UI/button/MyButton'
+import { MyInput } from '../UI/input/MyInput'
+import { MyTextArea } from '../UI/textArea/MyTextArea'
 import { LeaderSelect } from '../leader.select'
+import { MyModal } from './MyModal'
 
 interface AddModalProps extends ModalProps {}
 

@@ -1,9 +1,12 @@
-import React, { ChangeEvent, FC } from 'react'
-import { Option } from '@/types/Option'
+import React, { ChangeEvent, type FC } from 'react'
+
+import { Select, type SelectProps } from '@mantine/core'
+
+import { type Option } from '@/types/Option'
 import { Post } from '@/types/Post'
+import { type SortValue } from '@/types/SortValue'
+
 import classes from './MySelect.module.css'
-import { Select, SelectProps } from '@mantine/core'
-import { SortValue } from '@/types/SortValue'
 
 interface MySelectProps extends Omit<SelectProps, 'onChange'> {
   value: SortValue

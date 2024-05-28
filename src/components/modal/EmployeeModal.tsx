@@ -1,3 +1,6 @@
+import { type FC, useEffect, useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ActionIcon,
   Avatar,
@@ -7,7 +10,7 @@ import {
   Group,
   Input,
   InputBase,
-  ModalProps,
+  type ModalProps,
   Paper,
   Select,
   Stack,
@@ -15,32 +18,32 @@ import {
   Textarea,
   useCombobox
 } from '@mantine/core'
-import { MyModal } from './MyModal'
-import { Post } from '@/types/Post'
-import { PostInfo } from '../info/UserInfo'
-import dayjs from 'dayjs'
-import { dateFormat, dateParser, stageName } from '@/utils/constants'
-import { FC, useEffect, useState } from 'react'
-import { MyButton } from '../UI/button/MyButton'
+import { DateInput } from '@mantine/dates'
 import {
-  IconPencil,
-  IconCheck,
   IconArrowLeft,
-  IconChevronDown
+  IconCheck,
+  IconChevronDown,
+  IconPencil
 } from '@tabler/icons-react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import dayjs from 'dayjs'
 import { Controller, useForm } from 'react-hook-form'
-import { EditableInfo } from '../info/EditableInfo'
+
+import EmployeeService from '@/API/EmployeeService'
+import { Post } from '@/types/Post'
+import { dateFormat, dateParser, stageName } from '@/utils/constants'
+import { notifications } from '@/utils/helpers'
+
+import { type EditSchema, editSchema } from '../../types/EditSchema'
 import { StageBadge } from '../StageBadge'
-import { SelectStage } from '../selectStage/SelectStage'
+import { MyButton } from '../UI/button/MyButton'
 import { MyInput } from '../UI/input/MyInput'
 import { MyTextArea } from '../UI/textArea/MyTextArea'
-import { DateInput } from '@mantine/dates'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { EditSchema, editSchema } from '../../types/EditSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import EmployeeService from '@/API/EmployeeService'
-import { notifications } from '@/utils/helpers'
+import { EditableInfo } from '../info/EditableInfo'
+import { PostInfo } from '../info/UserInfo'
 import { LeaderSelect } from '../leader.select'
+import { SelectStage } from '../selectStage/SelectStage'
+import { MyModal } from './MyModal'
 
 interface EmployeeModalProps extends Omit<ModalProps, 'id'> {
   id: number | null

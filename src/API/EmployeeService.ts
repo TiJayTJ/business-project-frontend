@@ -1,7 +1,8 @@
-import { EditEmployeeParams } from '@/types/EditEmployeeParams'
-import { Post } from '@/types/Post'
-import { UserStage } from '@/types/UserStage'
 import axios from 'axios'
+
+import { type EditEmployeeParams } from '@/types/EditEmployeeParams'
+import { type Post } from '@/types/Post'
+import { type UserStage } from '@/types/UserStage'
 
 type ServerPost = Post & {
   startTime: string

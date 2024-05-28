@@ -1,4 +1,4 @@
-import { UserStage } from './UserStage'
+import { type UserStage } from './UserStage'
 
 export type EditEmployeeParams = {
   name: string

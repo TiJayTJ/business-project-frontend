@@ -1,6 +1,7 @@
-import { Post } from '@/types/Post'
-import { SortValue } from '@/types/SortValue'
 import { useMemo } from 'react'
+
+import { type Post } from '@/types/Post'
+import { type SortValue } from '@/types/SortValue'
 
 export const useSortedPosts = (posts: Post[], sort: SortValue) => {
   const sortedPosts = useMemo(() => {

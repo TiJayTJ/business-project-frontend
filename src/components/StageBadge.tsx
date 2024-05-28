@@ -1,7 +1,9 @@
-import { UserStage } from '@/types/UserStage'
-import { stageColor, stageName } from '@/utils/constants'
+import { type FC } from 'react'
+
 import { Badge } from '@mantine/core'
-import { FC } from 'react'
+
+import { type UserStage } from '@/types/UserStage'
+import { stageColor, stageName } from '@/utils/constants'
 
 interface StageBadgeProps {
   stage: UserStage

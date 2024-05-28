@@ -1,8 +1,11 @@
-import { Anchor, Box, Container, Group, Tabs } from '@mantine/core'
-import { FC, PropsWithChildren } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import styles from './Header.module.css'
+import { type FC, type PropsWithChildren } from 'react'
+
+import { Box, Container, Group } from '@mantine/core'
 import { clsx } from 'clsx'
+import { useNavigate } from 'react-router-dom'
+
+import { MyButton } from '../UI/button/MyButton'
+import styles from './Header.module.css'
 
 interface TabProps extends PropsWithChildren, HeaderProps {
   to: string
@@ -28,8 +31,10 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ ...props }) => {
+  const navigate = useNavigate()
+
   return (
-    <Container w="100%">
+    <Container w="100%" className={styles.root}>
       <Group gap={0} className={styles.tabs}>
         <Tab to="/" {...props}>
           Сотрудники
@@ -38,6 +43,15 @@ export const Header: FC<HeaderProps> = ({ ...props }) => {
           Статистика
         </Tab>
       </Group>
+      <MyButton
+        variant="default"
+        onClick={() => {
+          localStorage.removeItem('token')
+          navigate('/login')
+        }}
+      >
+        Выйти
+      </MyButton>
     </Container>
   )
 }

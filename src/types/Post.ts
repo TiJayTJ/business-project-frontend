@@ -1,5 +1,5 @@
-import { Leader } from './Leader'
-import { UserStage } from './UserStage'
+import { type Leader } from './Leader'
+import { type UserStage } from './UserStage'
 
 export type Post = {
   id: number

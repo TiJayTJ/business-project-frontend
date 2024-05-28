@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactNode } from 'react'
+import { type FC, type PropsWithChildren, type ReactNode } from 'react'
 
 export interface EditableInfoProps extends PropsWithChildren {
   edit: boolean

@@ -1,6 +1,7 @@
-import { AddLeaderParams } from '@/types/AddLeaderParams'
-import { Leader } from '@/types/Leader'
 import axios from 'axios'
+
+import { type AddLeaderParams } from '@/types/AddLeaderParams'
+import { type Leader } from '@/types/Leader'
 
 export class LeadersService {
   static async get(search: string): Promise<Leader[]> {

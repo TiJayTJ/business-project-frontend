@@ -1,3 +1,6 @@
+import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Button,
   CheckIcon,
@@ -6,20 +9,20 @@ import {
   Popover,
   Select
 } from '@mantine/core'
-import { PropsWithId } from '../application.controls/controlTypes'
 import { DatePickerInput } from '@mantine/dates'
-import { ControlPopover } from '../application.controls/ControlPopover'
-import { z } from 'zod'
-import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import TrainingService from '@/API/TrainingService'
-import { getNotify, notifications } from '@/utils/helpers'
 import { IconArrowNarrowRight } from '@tabler/icons-react'
-import { MyDateInput } from '../UI/myDateInput/MyDateInput'
+import { useMutation } from '@tanstack/react-query'
 import { register } from 'module'
+import { Controller, useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import TrainingService from '@/API/TrainingService'
 import { TestType } from '@/types/TestType'
+import { getNotify, notifications } from '@/utils/helpers'
+
+import { MyDateInput } from '../UI/myDateInput/MyDateInput'
+import { ControlPopover } from '../application.controls/ControlPopover'
+import { type PropsWithId } from '../application.controls/controlTypes'
 
 const resultFormSchema = z.object({
   date: z.date({ required_error: 'Обязательное поле' }),

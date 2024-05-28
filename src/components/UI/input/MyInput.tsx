@@ -1,5 +1,6 @@
-import React, { FC, forwardRef } from 'react'
-import { TextInput, TextInputProps } from '@mantine/core'
+import React, { type FC, forwardRef } from 'react'
+
+import { TextInput, type TextInputProps } from '@mantine/core'
 
 interface MyInputProps extends TextInputProps {}
 

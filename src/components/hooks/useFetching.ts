@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 export const useFetching = <G>(callback: (data?: G) => Promise<unknown>) => {
+  // eslint-disable-next-line prettier/prettier
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
